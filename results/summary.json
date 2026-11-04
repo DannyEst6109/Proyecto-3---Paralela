@@ -1,0 +1,35 @@
+{
+  "experiment_kind": "single_local_execution_not_cuda_benchmark",
+  "cpu_run": {
+    "tensorflow_setup_s": 2.7073244000021077,
+    "load_and_verify_s": 1.8267354999989038,
+    "normalize_cpu_s": 0.8742887999978848,
+    "build_model_and_input_s": 0.5133486000013363,
+    "train_with_validation_s": 631.3312141999995,
+    "evaluate_and_predictions_s": 5.528608299999178,
+    "save_final_weights_s": 0.08220140000048559,
+    "run_wall_s": 643.2286290999982
+  },
+  "validation_accuracy": 0.7103448510169983,
+  "test_accuracy": 0.8,
+  "epochs_completed": 20,
+  "model_parameters": 1145693,
+  "resource_samples": 598,
+  "initialization_matches_smoke": true,
+  "preparations": {
+    "preparation_sequential_01": {
+      "inventory_s": 1.788005599999451,
+      "partition_s": 0.6888288999980432,
+      "images_s": 15.857449499999348,
+      "export_s": 12.025579899996956,
+      "prepare_wall_s": 30.966132099998504
+    },
+    "preparation_parallel4_01": {
+      "inventory_s": 1.6034303000014916,
+      "partition_s": 0.5246740999973554,
+      "images_s": 7.398601699998835,
+      "export_s": 12.576267600001302,
+      "prepare_wall_s": 22.722501000000193
+    }
+  }
+}

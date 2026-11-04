@@ -1,0 +1,91 @@
+GPU visibles: [] | entrenamiento forzado a /CPU:0
+Muestras: {'train': 12180, 'val': 2610, 'test': 2610}
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+Model: "cnn_base"
+┌─────────────────────────────────┬────────────────────────┬───────────────┐
+│ Layer (type)                    │ Output Shape           │       Param # │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:CPU:0']
+Epoch 1/20
+191/191 - 34s - 176ms/step - accuracy: 0.1970 - loss: 2.7752 - val_accuracy: 0.3897 - val_loss: 2.0160
+Epoch 2/20
+191/191 - 33s - 172ms/step - accuracy: 0.5250 - loss: 1.4825 - val_accuracy: 0.5100 - val_loss: 1.5044
+Epoch 3/20
+191/191 - 29s - 150ms/step - accuracy: 0.6978 - loss: 0.9159 - val_accuracy: 0.6015 - val_loss: 1.2575
+Epoch 4/20
+191/191 - 28s - 146ms/step - accuracy: 0.7823 - loss: 0.6471 - val_accuracy: 0.6483 - val_loss: 1.1460
+Epoch 5/20
+191/191 - 27s - 143ms/step - accuracy: 0.8392 - loss: 0.4736 - val_accuracy: 0.6755 - val_loss: 1.1194
+Epoch 6/20
+191/191 - 31s - 164ms/step - accuracy: 0.8749 - loss: 0.3671 - val_accuracy: 0.6705 - val_loss: 1.0916
+Epoch 7/20
+191/191 - 32s - 167ms/step - accuracy: 0.8945 - loss: 0.3085 - val_accuracy: 0.6870 - val_loss: 1.2185
+Epoch 8/20
+191/191 - 33s - 174ms/step - accuracy: 0.9076 - loss: 0.2640 - val_accuracy: 0.6985 - val_loss: 1.1630
+Epoch 9/20
+191/191 - 35s - 186ms/step - accuracy: 0.9229 - loss: 0.2255 - val_accuracy: 0.6862 - val_loss: 1.2634
+Epoch 10/20
+191/191 - 30s - 158ms/step - accuracy: 0.9342 - loss: 0.1891 - val_accuracy: 0.7464 - val_loss: 1.1107
+Epoch 11/20
+191/191 - 30s - 156ms/step - accuracy: 0.9412 - loss: 0.1726 - val_accuracy: 0.7149 - val_loss: 1.1867
+Epoch 12/20
+191/191 - 41s - 216ms/step - accuracy: 0.9417 - loss: 0.1710 - val_accuracy: 0.7184 - val_loss: 1.2605
+Epoch 13/20
+191/191 - 31s - 162ms/step - accuracy: 0.9526 - loss: 0.1419 - val_accuracy: 0.7073 - val_loss: 1.4206
+Epoch 14/20
+191/191 - 32s - 168ms/step - accuracy: 0.9527 - loss: 0.1380 - val_accuracy: 0.7602 - val_loss: 1.1488
+Epoch 15/20
+191/191 - 34s - 179ms/step - accuracy: 0.9568 - loss: 0.1229 - val_accuracy: 0.7475 - val_loss: 1.2600
+Epoch 16/20
+191/191 - 31s - 163ms/step - accuracy: 0.9615 - loss: 0.1101 - val_accuracy: 0.7640 - val_loss: 1.2319
+Epoch 17/20
+191/191 - 31s - 164ms/step - accuracy: 0.9564 - loss: 0.1262 - val_accuracy: 0.7398 - val_loss: 1.2557
+Epoch 18/20
+191/191 - 30s - 158ms/step - accuracy: 0.9667 - loss: 0.0982 - val_accuracy: 0.7337 - val_loss: 1.2714
+Epoch 19/20
+191/191 - 30s - 154ms/step - accuracy: 0.9700 - loss: 0.0906 - val_accuracy: 0.7487 - val_loss: 1.2299
+Epoch 20/20
+191/191 - 29s - 149ms/step - accuracy: 0.9663 - loss: 0.0980 - val_accuracy: 0.7103 - val_loss: 1.3383
+{
+  "times": {
+    "tensorflow_setup_s": 2.7073244000021077,
+    "load_and_verify_s": 1.8267354999989038,
+    "normalize_cpu_s": 0.8742887999978848,
+    "build_model_and_input_s": 0.5133486000013363,
+    "train_with_validation_s": 631.3312141999995,
+    "evaluate_and_predictions_s": 5.528608299999178,
+    "save_final_weights_s": 0.08220140000048559,
+    "run_wall_s": 643.2286290999982
+  },
+  "validation": {
+    "accuracy": 0.7103448510169983,
+    "loss": 1.3383477926254272
+  },
+  "test": {
+    "accuracy": 0.800000011920929,
+    "loss": 0.9018059968948364
+  }
+}

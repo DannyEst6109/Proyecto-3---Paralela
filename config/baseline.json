@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "image_size": 64,
+  "block_size": 100,
+  "block_margin": 25,
+  "train_blocks": 21,
+  "val_blocks": 4,
+  "test_blocks": 5,
+  "samples_per_class": {"train": 420, "val": 90, "test": 90},
+  "model": "cnn_base",
+  "epochs": 20,
+  "batch_size": 64,
+  "learning_rate": 0.001,
+  "augmentation": false,
+  "early_stopping": false,
+  "precision": "float32"
+}

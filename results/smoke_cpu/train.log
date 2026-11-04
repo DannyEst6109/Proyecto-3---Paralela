@@ -1,0 +1,54 @@
+GPU visibles: [] | entrenamiento forzado a /CPU:0
+Muestras: {'train': 464, 'val': 116, 'test': 116}
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+Model: "cnn_base"
+┌─────────────────────────────────┬────────────────────────┬───────────────┐
+│ Layer (type)                    │ Output Shape           │       Param # │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:CPU:0']
+C:\Users\carlos.estrada\Documents\U\Proyecto-3---Paralela\.venv\Lib\site-packages\keras\src\trainers\epoch_iterator.py:74: UserWarning: `shuffle=True` was passed, but will be ignored since the data `x` was provided as a tf.data.Dataset. The Dataset is expected to already be shuffled (via `.shuffle(buffer_size)`).
+  self.data_adapter = data_adapters.get_data_adapter(
+8/8 - 3s - 365ms/step - accuracy: 0.0539 - loss: 3.3585 - val_accuracy: 0.0776 - val_loss: 3.3313
+{
+  "times": {
+    "tensorflow_setup_s": 2.751552999998239,
+    "load_and_verify_s": 1.8229596000019228,
+    "normalize_cpu_s": 0.01861540000027162,
+    "build_model_and_input_s": 0.15267230000245036,
+    "train_with_validation_s": 2.9245200999976078,
+    "evaluate_and_predictions_s": 0.39662260000113747,
+    "save_final_weights_s": 0.068148199999996,
+    "run_wall_s": 8.2107453000026
+  },
+  "validation": {
+    "accuracy": 0.07758620381355286,
+    "loss": 3.33132004737854
+  },
+  "test": {
+    "accuracy": 0.11206896603107452,
+    "loss": 3.353757619857788
+  }
+}

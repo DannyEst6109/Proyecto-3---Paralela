@@ -1,0 +1,6 @@
+{
+  "captured_at": "2026-11-04T01:43:42.818Z",
+  "window_title": "Administrador de tareas",
+  "run": "cpu_baseline_01",
+  "note": "Captura del Administrador de tareas durante el entrenamiento CPU, sin edición de píxeles. Los gráficos muestran actividad del sistema; resources.csv identifica el proceso Python."
+}

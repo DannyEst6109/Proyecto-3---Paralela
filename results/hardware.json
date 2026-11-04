@@ -1,0 +1,12 @@
+{
+  "cpu": {
+    "Name": "Intel(R) Core(TM) Ultra 5 125U",
+    "NumberOfCores": 12,
+    "NumberOfLogicalProcessors": 14
+  },
+  "gpu": {
+    "Name": "Intel(R) Graphics",
+    "DriverVersion": "32.0.101.8860"
+  },
+  "ram_bytes": 33844576256
+}

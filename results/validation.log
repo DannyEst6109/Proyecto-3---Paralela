@@ -1,0 +1,15 @@
+test_counts_unique_files_and_block_guards (test_data.DataTests.test_counts_unique_files_and_block_guards) ... ok
+test_matches_original_notebook_partition (test_data.DataTests.test_matches_original_notebook_partition) ... ok
+test_process_pool_preserves_pixels_labels_and_order (test_data.DataTests.test_process_pool_preserves_pixels_labels_and_order) ... ok
+test_rejects_more_samples_than_available (test_data.DataTests.test_rejects_more_samples_than_available) ... ok
+test_rejects_unreadable_image (test_data.DataTests.test_rejects_unreadable_image) ... ok
+test_model_matches_original_cnn_base (test_model.ModelTests.test_model_matches_original_cnn_base) ... WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793756999.967922   63304 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1793757002.882778   63304 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 8.281s
+
+OK
