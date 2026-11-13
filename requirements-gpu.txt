@@ -1,0 +1,4 @@
+-r requirements.txt
+# Linux/WSL2 con GPU NVIDIA: añade CUDA, cuDNN, cuBLAS y NCCL como ruedas pip (nvidia-*).
+# Solo requiere el driver NVIDIA del sistema; no hace falta instalar el CUDA Toolkit.
+tensorflow[and-cuda]==2.21.0

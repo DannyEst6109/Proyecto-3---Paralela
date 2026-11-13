@@ -1,0 +1,107 @@
+{
+  "steps_profiled": 10,
+  "warmup_steps": 3,
+  "batch_shape": [
+    64,
+    64,
+    64,
+    3
+  ],
+  "gpu": {
+    "compute_capability": [
+      8,
+      6
+    ],
+    "device_name": "NVIDIA GeForce RTX 3060 Laptop GPU"
+  },
+  "distinct_kernels": 119,
+  "kernel_launches": 3270,
+  "gpu_kernel_time_ms": 71.323431,
+  "time_share_by_category": {
+    "Conv2D gradiente de filtros (cuDNN)": {
+      "ms": 29.203291000000007,
+      "percent": 40.94487686662187
+    },
+    "Actualización Adam y escalares (TF/Eigen)": {
+      "ms": 8.342041999999996,
+      "percent": 11.696075024769904
+    },
+    "Conv2D forward (cuDNN, fusionada con sesgo+ReLU)": {
+      "ms": 7.851682000000001,
+      "percent": 11.008559024593195
+    },
+    "MaxPooling gradiente (cuDNN)": {
+      "ms": 7.015248000000001,
+      "percent": 9.835825200276751
+    },
+    "Gradiente ReLU (TF/Eigen)": {
+      "ms": 5.902477,
+      "percent": 8.275649274359782
+    },
+    "Conv2D gradiente de entrada (cuDNN)": {
+      "ms": 5.3533740000000005,
+      "percent": 7.505771840953641
+    },
+    "MaxPooling forward (cuDNN)": {
+      "ms": 2.372982,
+      "percent": 3.3270721370653074
+    },
+    "Gradiente del sesgo (reducción TF)": {
+      "ms": 2.15035,
+      "percent": 3.014927871319034
+    },
+    "Dense: producto de matrices (cuBLAS)": {
+      "ms": 1.4198829999999998,
+      "percent": 1.9907665406617916
+    },
+    "Cambio de formato NCHW/NHWC (cuDNN/TF)": {
+      "ms": 0.680264,
+      "percent": 0.9537735221963732
+    },
+    "Gradiente de la pérdida por etiqueta (TF)": {
+      "ms": 0.421851,
+      "percent": 0.5914620119719143
+    },
+    "Reducciones y métricas (TF)": {
+      "ms": 0.18234899999999998,
+      "percent": 0.2556649300844767
+    },
+    "Dropout (TF/Eigen)": {
+      "ms": 0.163378,
+      "percent": 0.22906637792004142
+    },
+    "Softmax y pérdida (TF)": {
+      "ms": 0.11566499999999999,
+      "percent": 0.16216970829684288
+    },
+    "Suma de sesgo (TF/Eigen)": {
+      "ms": 0.035678,
+      "percent": 0.050022831907791984
+    },
+    "otro: BitwiseAnd;LogicalAnd": {
+      "ms": 0.033882,
+      "percent": 0.04750472534054062
+    },
+    "otro: FloorMod": {
+      "ms": 0.017536,
+      "percent": 0.02458659062545659
+    },
+    "otro: Exp": {
+      "ms": 0.016287,
+      "percent": 0.02283541295146051
+    },
+    "otro: Less": {
+      "ms": 0.015712,
+      "percent": 0.022029226272078806
+    },
+    "ReLU (TF/Eigen)": {
+      "ms": 0.015101,
+      "percent": 0.02117256529624886
+    },
+    "otro: LogicalOr": {
+      "ms": 0.014399,
+      "percent": 0.020188316515508065
+    }
+  },
+  "xplane": "results/gpu_kernels/trace/plugins/profile/2026_11_12_19_03_58/compu-sebas.xplane.pb"
+}
