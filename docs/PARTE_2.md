@@ -4,7 +4,11 @@
 
 Esta parte entrena la misma CNN base de la parte 1 en una GPU NVIDIA mediante CUDA y demuestra que el hardware se usa realmente. Conserva datos, particiones, arquitectura, optimizador, épocas, lote, semilla y precisión de la referencia CPU. Los archivos, la preparación de imágenes, la normalización y el pipeline de entrada permanecen en CPU; a la GPU se delega solo la matemática de la red (forward, pérdida, gradientes y actualización de Adam).
 
-Entrega el código (`asl_cpu/train.py --device gpu`, `gpu_check.py`, `profile_kernels.py`, `compare_runs.py`, `plot_gpu.py`), la verificación del entorno, el diseño paralelo con la configuración real de hilos/bloques/grids, una ejecución GPU completa y su comparación con una ejecución CPU en el mismo equipo. Los promedios de cinco repeticiones y el speedup final corresponden a la parte 3.
+Entrega:
+
+- **Código:** `asl_cpu/train.py --device gpu`, los kernels propios en CUDA Python (`cuda_kernels.py`, `numba_adam.py`, `benchmark_kernels.py`) y las herramientas `gpu_check.py`, `profile_kernels.py`, `compare_runs.py` y `plot_gpu.py`.
+- **Diseño paralelo:** la distribución de hilos, bloques y grids implementada por el equipo y la que usan las librerías.
+- **Ejecuciones:** dos entrenamientos GPU completos (Adam de Keras y Adam con kernel propio) y su comparación con una ejecución CPU en el mismo equipo. Los promedios de cinco repeticiones y el speedup final corresponden a la parte 3.
 
 ## Hardware y entorno
 
@@ -55,9 +59,12 @@ Lo que permanece en CPU y por qué: recorrer carpetas, abrir y decodificar JPEG,
 
 ## Diseño paralelo: hilos, bloques y grids
 
-Esta implementación usa CUDA a través de TensorFlow: cada operación de la red se ejecuta como uno o varios kernels de cuDNN, cuBLAS/CUTLASS o de TensorFlow/Eigen. No escribimos kernels propios; la librería elige la configuración de lanzamiento según la forma de los tensores y la GPU. **Pendiente del equipo:** confirmar con el docente que acepta CUDA mediante el framework. Si exige kernels propios, la tabla siguiente sirve de base para escribirlos con Numba o CuPy.
+El trabajo en GPU se organiza en dos niveles que se combinan:
 
-El diseño conceptual es paralelismo de datos sobre los elementos de salida:
+1. **Kernels propios en CUDA Python (Numba)**, diseñados por el equipo, con hilos, bloques y grids elegidos a mano (`asl_cpu/cuda_kernels.py`). El kernel de Adam actualiza los pesos durante el entrenamiento (`--optimizer numba`). Los kernels de convolución, MaxPooling, Dense y softmax ejecutan el forward completo de la CNN entrenada y se comparan contra la CPU y contra cuDNN (`benchmark_kernels.py`).
+2. **Kernels de librería** (cuDNN, cuBLAS/CUTLASS, TensorFlow/Eigen) que TensorFlow lanza para el forward y los gradientes del entrenamiento. Su configuración la elige la librería; se mide con el profiler para compararla con nuestro diseño.
+
+El diseño se basa en paralelismo de datos sobre los elementos de salida:
 
 | Operación | Unidad de trabajo de un hilo | Bloque | Grid |
 |---|---|---|---|
@@ -68,6 +75,35 @@ El diseño conceptual es paralelismo de datos sobre los elementos de salida:
 | Reducciones (gradiente del sesgo, pérdida, métricas) | Una suma parcial | 256 hilos que reducen en memoria compartida | Un bloque por fragmento; una segunda pasada combina los parciales |
 
 Un lote de entrenamiento de 64 imágenes se ejecuta completo en la GPU: el grid de cada kernel cubre todo el lote y la RTX 3060 reparte los bloques entre sus 30 SM. Las épocas y los lotes siguen siendo secuenciales, porque cada actualización de Adam depende de la anterior.
+
+### Kernels propios en CUDA Python (Numba)
+
+Configuración real de lanzamiento con un lote de 64 imágenes (`results/kernels_numba/benchmark.json`):
+
+| Kernel | Un hilo calcula | Bloque | Grid | Bloques | Hilos totales |
+|---|---|---|---|---:|---:|
+| `adam_update` (capa Dense de 1,048,576 pesos) | Un parámetro: m, v y el peso nuevo | 256 | 4,096 | 4,096 | 1,048,576 |
+| `conv2d_3x3_bias_relu` v1, capa 1 | Un valor de salida (imagen, y, x, filtro) | 16 × 16 | 4 × 4 × 2,048 (64 imágenes × 32 filtros) | 32,768 | 8,388,608 |
+| `conv2d_3x3_tiled` v2, capa 1 | 8 filtros de un pixel | 16 × 16 | 4 × 4 × 256 (64 imágenes × 4 grupos de 8 filtros) | 4,096 | 1,048,576 |
+| `conv2d_3x3_tiled` v2, capa 2 | 8 filtros de un pixel | 16 × 16 | 2 × 2 × 512 | 2,048 | 524,288 |
+| `conv2d_3x3_tiled` v2, capa 3 | 8 filtros de un pixel | 16 × 16 | 1 × 1 × 1,024 | 1,024 | 262,144 |
+| `maxpool_2x2`, capa 1 | El máximo de una ventana 2 × 2 | 16 × 16 | 2 × 2 × 2,048 | 8,192 | 2,097,152 |
+| `matmul_bias_act`, Dense 1 (64 × 8192 · 8192 × 128) | Un elemento de C, con teselas 16 × 16 en memoria compartida | 16 × 16 | 8 × 4 | 32 | 8,192 |
+| `softmax_rows` | La softmax de una imagen (29 clases) | 64 | 1 | 1 | 64 |
+
+Decisiones de diseño:
+
+- **Índice de cada hilo.** Se obtiene con `cuda.grid(1)` o `cuda.grid(2)` (`blockIdx · blockDim + threadIdx`). Cuando el tamaño no es múltiplo del bloque, los hilos sobrantes del último bloque no hacen nada (`if i < n`).
+- **Tercera dimensión del grid.** En las capas 2D, `blockIdx.z` recorre imagen × filtro (o imagen × canal). Así un solo lanzamiento procesa el lote completo.
+- **Teselas en la multiplicación de matrices.** Los 256 hilos de un bloque copian juntos una tesela 16 × 16 de A y otra de B a memoria compartida (`cuda.shared.array`), se sincronizan con `cuda.syncthreads()` y cada uno acumula 16 productos. Cada valor se lee de memoria global 16 veces menos.
+- **Convolución v2.** La v1 es el diseño directo: un hilo por salida, que lee todo desde memoria global. Cada bloque calcula un solo filtro, así que la misma entrada se vuelve a leer para cada uno de los 32–128 filtros. La v2 corrige eso:
+  - cada bloque copia una vez a memoria compartida una tesela de entrada de 18 × 18 × 8 (16 × 16 más el borde que necesita el filtro 3 × 3) y los pesos 3 × 3 × 8 × 8;
+  - cada hilo acumula 8 filtros en registros (`cuda.local.array`), con lo que cada valor leído de memoria global se reutiliza 72 veces;
+  - se lanzan 8 veces menos bloques.
+- **Fusión de operaciones.** El sesgo y la ReLU se aplican dentro del kernel de convolución y del de Dense, como hace cuDNN, para no escribir y releer el tensor intermedio.
+- **Adam.** Usa la misma fórmula que Keras (`m += (g − m)(1 − β1)`, `v += (g² − v)(1 − β2)`, `w −= lr_t · m / (√v + ε)`). El factor `lr_t` se calcula una vez por paso en el host. Los momentos m y v viven en la GPU todo el entrenamiento.
+
+### Kernels de librería medidos con el profiler
 
 `python -m asl_cpu.profile_kernels` perfila 10 pasos de entrenamiento con CUPTI, después de 3 de calentamiento, en float32 estricto con determinismo. Registró 3,270 lanzamientos de 119 kernels distintos (≈ 327 por paso) y 71.3 ms de GPU, es decir ≈ 7.1 ms por paso. Configuraciones reales (`results/gpu_kernels/kernels.csv`), mostrando el kernel más pesado de cada categoría:
 
@@ -122,6 +158,16 @@ Cambios en `asl_cpu/train.py`:
 | Determinismo, semilla, `jit_compile=False` | Igual | Igual |
 | Monitores | psutil cada 1 s y nvidia-smi cada 500 ms | Igual |
 | Sincronización | — | `tf.test.experimental.sync_devices()` al final de cada época, de fit y de la evaluación |
+| Optimizador | Adam de Keras | Adam de Keras (`--optimizer keras`, por defecto) o kernel Numba propio (`--optimizer numba`) |
+
+Con `--optimizer numba`, `asl_cpu/numba_adam.py` reemplaza `model.fit` por un ciclo equivalente:
+
+1. Una `tf.function` calcula, por lote, las probabilidades, la pérdida y los gradientes con TensorFlow (cuDNN/cuBLAS).
+2. Los gradientes y los pesos pasan a CuPy/Numba con **DLPack**, que comparte la misma memoria de la GPU sin copiarla.
+3. El kernel `adam_update` actualiza los 10 tensores de pesos.
+4. El resultado vuelve a las variables de TensorFlow, también por DLPack.
+
+TensorFlow y Numba usan colas (streams) CUDA distintas, así que se sincroniza antes de leer los gradientes y después del kernel. La validación por época, los callbacks (`progress.json`, `epochs.csv`) y las fronteras de medición son los mismos que con `fit`. Validación del kernel: tras 5 pasos con los mismos gradientes, los pesos difieren del Adam de Keras como máximo 7 × 10⁻⁷ (redondeo float32).
 
 El modelo sigue creándose con `asl_cpu.model.create_cnn_base`, sin cambios. Con la misma semilla, los pesos iniciales de la GPU tienen el mismo SHA-256 que la referencia CPU de la parte 1 (`b1feb980…`), así que ambas versiones parten del mismo punto. `--initial-weights` permite forzarlo si cambia el entorno.
 
@@ -213,6 +259,62 @@ Ambas corridas parten de los mismos pesos y ven los mismos lotes en el mismo ord
 
 Después de la primera época la diferencia en la exactitud de entrenamiento es de 1 pp y en la época 20 es de 0.1 pp. Las curvas de entrenamiento son prácticamente iguales; la validación y la prueba difieren entre 0.2 y 1.7 pp. El modelo sobreajusta (96.6 % en entrenamiento frente a 75 % en validación), por lo que dos trayectorias cercanas pueden clasificar distinto los ejemplos dudosos de prueba. Eso explica el 83.7 % de coincidencia. No se interpreta la diferencia de 1.7 pp como un efecto de CUDA sobre la calidad del modelo: con una sola pareja de corridas, es del orden de la variación entre trayectorias. La parte 3 puede confirmarlo con las repeticiones.
 
+## Resultados de los kernels propios
+
+### Entrenamiento con Adam en kernel Numba
+
+Comando: `python -m asl_cpu.train --device gpu --optimizer numba --output-dir results/gpu_numba_adam_01`. Mismos datos, pesos iniciales (`b1feb980…`), épocas y configuración que las otras corridas (verificado con `compare_runs`).
+
+| Medición | CPU (`cpu_rtx_01`) | GPU, Adam de Keras (`gpu_baseline_01`) | GPU, Adam con kernel Numba (`gpu_numba_adam_01`) |
+|---|---:|---:|---:|
+| Entrenamiento con validación (20 épocas) | 254.06 s | 42.87 s | 64.01 s |
+| Speedup del entrenamiento frente a CPU | 1.00 | 5.93 | 3.97 |
+| Ejecución completa del comando | 261.27 s | 49.25 s | 72.20 s |
+| Media de las épocas 2–20 | 12.64 s | 1.96 s | 3.04 s |
+| Exactitud de entrenamiento / validación / prueba | 96.59 / 74.48 / 82.61 % | 96.69 / 74.67 / 80.88 % | 96.86 / 71.88 / 79.00 % |
+| Utilización de la GPU en fit (régimen estable) | — | 82 % | 53 % |
+
+El kernel hizo 3,820 pasos, es decir 38,200 lanzamientos (10 tensores por paso). La versión con Numba es más lenta que la de Keras (64 s frente a 43 s) por el costo de **coordinar** dos runtimes, no por el cálculo:
+
+- **Cálculo.** El kernel de Adam tarda 0.16 ms por paso, frente a 1.09 ms del Adam de Keras (tabla siguiente).
+- **Coordinación.** En cada paso hay que esperar a que TensorFlow termine los gradientes, convertir 20 tensores con DLPack, lanzar 10 kernels desde Python, sincronizar y asignar 10 variables. El programa midió 10.9 s de lanzamiento + sincronización y 10.1 s de DLPack + asignación.
+- **GPU desocupada.** Mientras Python coordina la GPU espera, por eso su utilización baja de 82 % a 53 %.
+
+Integrar el kernel dentro del grafo de TensorFlow (una op personalizada en C++/CUDA) eliminaría ese costo, pero queda fuera del alcance de CUDA Python. Las exactitudes finales difieren 1–3 pp de las otras corridas. El kernel de Adam coincide numéricamente con el de Keras, pero el ciclo propio genera la máscara de Dropout con otra secuencia aleatoria que `fit`, así que la trayectoria de entrenamiento es otra. La variación es del mismo orden que entre CPU y GPU.
+
+### Forward de la CNN con kernels propios
+
+`python -m asl_cpu.benchmark_kernels --output-dir results/kernels_numba` carga los pesos entrenados de `gpu_baseline_01`. Pasa las 2,610 imágenes de prueba por la red usando **solo** los kernels propios, y obtiene la misma exactitud que TensorFlow:
+
+- 80.88 % en ambos;
+- 100 % de las clases coinciden;
+- diferencia máxima de probabilidad: 9.5 × 10⁻⁶.
+
+Tiempos con un lote de 64 imágenes (mediana de 20 repeticiones tras 3 de calentamiento; los datos ya están en el dispositivo; NumPy usa BLAS multihilo):
+
+| Capa | CPU NumPy (ms) | GPU Numba v1 directa (ms) | GPU Numba v2 memoria compartida (ms) | GPU TensorFlow cuDNN/cuBLAS (ms) |
+|---|---:|---:|---:|---:|
+| Conv2D 1 + sesgo + ReLU | 60.62 | 3.78 | 1.61 | 0.96 |
+| MaxPooling 1 | 14.05 | 0.40 | | 0.19 |
+| Conv2D 2 + sesgo + ReLU | 45.43 | 24.45 | 2.73 | 0.77 |
+| MaxPooling 2 | 5.08 | 0.22 | | 0.12 |
+| Conv2D 3 + sesgo + ReLU | 26.40 | 23.09 | 2.89 | 0.59 |
+| MaxPooling 3 | 2.21 | 0.16 | | 0.24 |
+| Dense 1 (8192 → 128) + ReLU | 0.58 | 0.64 | | 0.34 |
+| Dense 2 (128 → 29) | 0.015 | 0.11 | | 0.30 |
+| Softmax | 0.028 | 0.077 | | 0.14 |
+| **Forward completo** | **158.54** | **56.23** | **11.66** | **5.69** |
+| Paso de Adam, 1,145,693 parámetros | 6.21 | 0.155 | | 1.09 (Keras) |
+| Copia host → GPU del lote (3.1 MB) | | 0.81 | | |
+
+Lectura de los resultados:
+
+- **Forward completo.** Con nuestros kernels v2 es **13.6× más rápido que NumPy** en CPU y 2× más lento que cuDNN, que usa algoritmos Winograd/GEMM afinados para Ampere.
+- **Convolución v2 frente a v1.** La memoria compartida y los 8 filtros por hilo bajan la capa 2 de 24.4 ms a 2.7 ms (**9×**). La v1 casi no mejora a la CPU en las capas 2 y 3 porque relee la entrada desde memoria global para cada filtro: el acceso a memoria, no la aritmética, era el cuello de botella.
+- **Adam.** Nuestro kernel (un hilo por parámetro, 4,476 bloques de 256) es 40× más rápido que NumPy y 7× más rápido que el Adam de Keras. Keras lanza varias ops separadas por variable; el kernel propio hace todo en una sola pasada por la memoria.
+- **Capas pequeñas.** En Dense 2 y softmax (64 × 29 valores) la CPU gana. Lanzar un kernel cuesta decenas de microsegundos y hay muy pocos hilos (un solo bloque en softmax), así que la GPU no tiene trabajo suficiente para amortizarlo.
+- **Transferencia.** Copiar el lote a la GPU (0.81 ms) es del mismo orden que una capa completa, y por eso conviene que los pesos y las activaciones permanezcan en la GPU.
+
 ## Por qué CUDA reduce el tiempo y qué lo limita
 
 - **Más aritmética en paralelo.** La CPU ejecuta las convoluciones con 8 hilos y sus unidades vectoriales. La GPU reparte cada capa en cientos de miles o millones de hilos sobre 30 SM, con memoria compartida para reutilizar teselas de entrada y filtros. El entrenamiento logró ≈ 66 TFLOP / 42.9 s ≈ 1.5 TFLOP/s efectivos en GPU, frente a ≈ 0.26 TFLOP/s en CPU.
@@ -225,6 +327,21 @@ Después de la primera época la diferencia en la exactitud de entrenamiento es 
   - La laptop alcanza su límite de 80 W y 87 °C, por lo que el reloj baja durante la corrida.
   - Las fases en CPU y el arranque de CUDA (≈ 6 s) limitan el speedup total.
 - **Qué podría acelerar más (experimentos separados, no usados en la comparación):** TF32 o precisión mixta, un lote mayor, `jit_compile=True` (XLA, que fusiona kernels), `prefetch_to_device` y desactivar el determinismo. Cualquiera de ellos cambia la carga o la numérica, así que debe reportarse aparte.
+
+## Funciones y librerías utilizadas
+
+| Librería | Funciones | Para qué |
+|---|---|---|
+| TensorFlow 2.21 / Keras 3 | `tf.config.list_physical_devices`, `set_visible_devices`, `set_memory_growth`, `enable_tensor_float_32_execution`, `tf.device("/GPU:0")`, `model.fit`, `tf.GradientTape`, `tf.function` | Detectar y configurar la GPU, colocar el modelo y calcular forward y gradientes |
+| TensorFlow | `tf.test.experimental.sync_devices`, `tf.config.experimental.get_memory_info` | Esperar a la GPU antes de medir y registrar la memoria usada |
+| TensorFlow | `tf.experimental.dlpack.to_dlpack` / `from_dlpack` | Compartir tensores con Numba/CuPy sin copiarlos |
+| cuDNN 9 | (llamado por TensorFlow) | Convoluciones, MaxPooling y sus gradientes |
+| cuBLAS / CUTLASS | (llamado por TensorFlow) | Productos de matrices de las capas Dense |
+| Numba 0.68 (CUDA Python) | `@cuda.jit`, `cuda.grid`, `cuda.blockIdx/threadIdx`, `cuda.shared.array`, `cuda.local.array`, `cuda.syncthreads`, `cuda.to_device`, `cuda.synchronize` | Escribir y lanzar los kernels propios con grid y bloques definidos por el equipo |
+| CuPy 14 | `cp.from_dlpack`, `cp.zeros` | Puente DLPack entre TensorFlow y Numba; momentos de Adam en la GPU |
+| pynvjitlink | `patch_numba_linker` | Compilar el PTX de Numba a cubin para el driver 12.4 |
+| CUPTI (profiler de TensorFlow) | `tf.profiler.experimental.start/stop` | Medir grid, block, registros y ocupación de los kernels de librería |
+| nvidia-smi | `--query-gpu ... --loop-ms=500`, `--query-compute-apps` | Evidencia de uso de la GPU y del proceso que la usa |
 
 ## Evidencias
 
@@ -240,12 +357,17 @@ Después de la primera época la diferencia en la exactitud de entrenamiento es 
 | `results/gpu_kernels/` | Kernels CUDA reales con grid, block, registros, memoria compartida y ocupación |
 | `results/cpu_rtx_01/` | Referencia CPU en el mismo equipo, con su `gpu.csv` mostrando la GPU inactiva |
 | `results/comparison_cpu_rtx_01_vs_gpu_baseline_01.json` | Salida de `compare_runs` |
+| `results/gpu_numba_adam_01/` | Entrenamiento completo con el kernel Adam propio: log, tiempos, configuración de lanzamiento por tensor, `gpu.csv`/`gpu.png` |
+| `results/comparison_cpu_rtx_01_vs_gpu_numba_adam_01.json` | Misma carga verificada para la corrida con kernel propio |
+| `results/smoke_gpu_numba/` | Prueba pequeña de integración del Adam Numba |
+| `results/kernels_numba/` | Exactitud del forward con kernels propios, tiempos por capa (CPU, Numba v1/v2, cuDNN) y grid/block de cada lanzamiento |
+| `tests/test_cuda_kernels.py` | Pruebas automáticas de cada kernel contra NumPy, incluidos tamaños no múltiplos del bloque |
 
-**Pendiente del equipo:** capturas de pantalla reales (nvidia-smi o `watch -n 0.5 nvidia-smi`, y el monitor del sistema) durante una corrida GPU y una CPU. Deben tomarlas una persona en el equipo. Los CSV, gráficos y el texto de nvidia-smi son mediciones reales, pero no sustituyen una captura.
+**Capturas de pantalla:** las toma una persona frente al equipo. `bash scripts/evidencia_parte2.sh` corre en orden una ejecución CPU, una GPU con Adam de Keras y una GPU con el kernel Numba, y pausa antes de cada una. Durante cada corrida se captura `watch -n 0.5 nvidia-smi` y el Monitor del sistema, y las imágenes se guardan en la carpeta `results/capturas_<fecha>/` que crea el script. Los CSV, gráficos y el texto de nvidia-smi son mediciones reales, pero no sustituyen las capturas.
 
 ## Entrega a la persona 3
 
-- Corrida GPU lista para medir: `python -m asl_cpu.train --device gpu --output-dir results/gpu_NN`, con una carpeta nueva por repetición.
+- Corrida GPU lista para medir: `python -m asl_cpu.train --device gpu --output-dir results/gpu_NN`, con una carpeta nueva por repetición. Con el kernel propio de Adam: añadir `--optimizer numba` (`run_kind = baseline_gpu_numba_adam`); reportarla como una configuración distinta.
 - Referencia CPU en el mismo equipo: `python -m asl_cpu.train --device cpu --threads 8 --output-dir results/cpu_NN`.
 - Validación de cada pareja: `python -m asl_cpu.compare_runs results/cpu_NN results/gpu_NN`. Termina con error si cambian la configuración, los datos, los pesos iniciales, las épocas o las muestras.
 - Los campos de `times` tienen las mismas fronteras en ambas versiones. Las transferencias están dentro de fit y evaluación. La primera época contiene el trazado y la selección de algoritmos de cuDNN en ambos casos.

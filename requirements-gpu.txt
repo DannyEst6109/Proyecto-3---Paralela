@@ -2,3 +2,10 @@
 # Linux/WSL2 con GPU NVIDIA: añade CUDA, cuDNN, cuBLAS y NCCL como ruedas pip (nvidia-*).
 # Solo requiere el driver NVIDIA del sistema; no hace falta instalar el CUDA Toolkit.
 tensorflow[and-cuda]==2.21.0
+# Kernels propios en CUDA Python (asl_cpu/cuda_kernels.py) y puente TensorFlow <-> Numba.
+numba==0.68.1
+cupy-cuda12x==14.2.0
+cuda-pathfinder==1.9.0
+# Compila el PTX de Numba a cubin en el proceso; necesario si el driver es más viejo que
+# el NVVM de pip (aquí driver 12.4 y NVVM 12.9). No instalar numba-cuda: exige driver >= 12.5.
+pynvjitlink-cu12==0.7.0

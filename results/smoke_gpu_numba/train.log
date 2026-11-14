@@ -1,0 +1,63 @@
+GPU visibles: ["PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')"] | detalles: [{'compute_capability': (8, 6), 'device_name': 'NVIDIA GeForce RTX 3060 Laptop GPU'}]
+CUDA 12.5.1 | cuDNN 9 | modelo en /GPU:0
+Muestras: {'train': 464, 'val': 116, 'test': 116}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:GPU:0']
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 4 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 1 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 72 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 15 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+Epoch 1/1
+8/8 - 3s - 371ms/step - accuracy: 0.0539 - loss: 3.3585 - val_accuracy: 0.1034 - val_loss: 3.3315
+Adam Numba: 8 pasos, kernel+sincronización 0.02 s, DLPack/assign 0.03 s, estado en cupy/numba device 0 (NVIDIA GeForce RTX 3060 Laptop GPU)
+Memoria GPU de TensorFlow: pico 232.2 MiB, actual 13.4 MiB
+{
+  "times": {
+    "tensorflow_setup_s": 1.9551532859986764,
+    "load_and_verify_s": 1.4221938530026819,
+    "normalize_cpu_s": 0.00831758899585111,
+    "build_model_and_input_s": 1.4671066170049016,
+    "train_with_validation_s": 3.2076910600007977,
+    "evaluate_and_predictions_s": 0.12688858799810987,
+    "save_final_weights_s": 0.024336600996321067,
+    "run_wall_s": 8.261784025999077
+  },
+  "validation": {
+    "accuracy": 0.1034482792019844,
+    "loss": 3.3315272331237793
+  },
+  "test": {
+    "accuracy": 0.09482758492231369,
+    "loss": 3.35394024848938
+  }
+}

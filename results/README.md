@@ -14,6 +14,10 @@ Esta carpeta contiene ejecuciones reales de preparación, entrenamiento CPU y en
 | cpu_rtx_01 | Parte 2: referencia CPU repetida en el mismo equipo NVIDIA con el código actual, para comparar con `gpu_baseline_01` |
 | gpu_kernels | Parte 2: perfil CUPTI de 10 pasos con grid/block/ocupación de cada kernel CUDA |
 | comparison_cpu_rtx_01_vs_gpu_baseline_01.json | Parte 2: misma carga verificada, diferencias de resultados y speedup de una sola pareja |
+| gpu_numba_adam_01 | Parte 2: entrenamiento completo con la actualización de Adam hecha por el kernel CUDA propio (Numba) |
+| smoke_gpu_numba | Parte 2: prueba de integración del Adam Numba, una época |
+| comparison_cpu_rtx_01_vs_gpu_numba_adam_01.json | Parte 2: misma carga verificada para la corrida con kernel propio |
+| kernels_numba | Parte 2: forward de la CNN con kernels propios (exactitud vs TensorFlow) y tiempos por capa CPU / Numba / cuDNN |
 
 `hardware.json` registra procesador, GPU visible por Windows y RAM del equipo de la parte 1; el equipo de la parte 2 está descrito en `gpu_environment.json` y en `docs/PARTE_2.md`. El entorno Python y las librerías de cada ejecución están en sus propios metadatos. `validation.log` registra las comprobaciones finales del código.
 

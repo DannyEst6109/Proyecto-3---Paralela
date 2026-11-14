@@ -1,0 +1,576 @@
+{
+  "weights": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/gpu_baseline_01/final.weights.h5",
+  "numba_setup": {
+    "nvvm": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/nvidia/cuda_nvcc/nvvm/lib64/libnvvm.so",
+    "cuda_home": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/nvidia/cuda_nvcc",
+    "cudart_dir": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/nvidia/cuda_runtime/lib",
+    "linker": "pynvjitlink"
+  },
+  "environment": {
+    "recorded_at": "2026-11-13T20:59:27.697369-06:00",
+    "platform": "Linux-6.8.0-45-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+    "physical_cores": 8,
+    "logical_cpus": 16,
+    "ram_bytes": 16533823488,
+    "packages": {
+      "tensorflow": "2.21.0",
+      "keras": "3.15.1",
+      "numpy": "2.2.6",
+      "pandas": "2.3.3",
+      "opencv-python-headless": "4.12.0.88",
+      "pyarrow": "22.0.0",
+      "psutil": "7.1.3"
+    }
+  },
+  "gpu": {
+    "compute_capability": [
+      8,
+      6
+    ],
+    "device_name": "NVIDIA GeForce RTX 3060 Laptop GPU"
+  },
+  "tensor_float_32": false,
+  "accuracy_check": {
+    "test_images": 2610,
+    "tensorflow_accuracy": 0.8088122605363984,
+    "numba_kernels_accuracy": 0.8088122605363984,
+    "argmax_agreement": 1.0,
+    "max_abs_prob_diff": 9.5367431640625e-06,
+    "naive_conv_accuracy": 0.8088122605363984,
+    "naive_conv_max_abs_prob_diff": 8.58306884765625e-06
+  },
+  "launch_configuration_batch64": [
+    {
+      "kernel": "conv2d_3x3_tiled (capa 1)",
+      "grid": "4x4x256",
+      "block": "16x16",
+      "blocks": 4096,
+      "threads_per_block": 256,
+      "total_threads": 1048576
+    },
+    {
+      "kernel": "maxpool_2x2 (capa 1)",
+      "grid": "2x2x2048",
+      "block": "16x16",
+      "blocks": 8192,
+      "threads_per_block": 256,
+      "total_threads": 2097152
+    },
+    {
+      "kernel": "conv2d_3x3_tiled (capa 2)",
+      "grid": "2x2x512",
+      "block": "16x16",
+      "blocks": 2048,
+      "threads_per_block": 256,
+      "total_threads": 524288
+    },
+    {
+      "kernel": "maxpool_2x2 (capa 2)",
+      "grid": "1x1x4096",
+      "block": "16x16",
+      "blocks": 4096,
+      "threads_per_block": 256,
+      "total_threads": 1048576
+    },
+    {
+      "kernel": "conv2d_3x3_tiled (capa 3)",
+      "grid": "1x1x1024",
+      "block": "16x16",
+      "blocks": 1024,
+      "threads_per_block": 256,
+      "total_threads": 262144
+    },
+    {
+      "kernel": "maxpool_2x2 (capa 3)",
+      "grid": "1x1x8192",
+      "block": "16x16",
+      "blocks": 8192,
+      "threads_per_block": 256,
+      "total_threads": 2097152
+    },
+    {
+      "kernel": "matmul_bias_act (Dense 1)",
+      "grid": "8x4",
+      "block": "16x16",
+      "blocks": 32,
+      "threads_per_block": 256,
+      "total_threads": 8192
+    },
+    {
+      "kernel": "matmul_bias_act (Dense 2)",
+      "grid": "2x4",
+      "block": "16x16",
+      "blocks": 8,
+      "threads_per_block": 256,
+      "total_threads": 2048
+    },
+    {
+      "kernel": "softmax_rows",
+      "grid": "1",
+      "block": "64",
+      "blocks": 1,
+      "threads_per_block": 64,
+      "total_threads": 64
+    }
+  ],
+  "launch_configuration_batch64_naive_conv": [
+    {
+      "kernel": "conv2d_3x3_bias_relu (capa 1)",
+      "grid": "4x4x2048",
+      "block": "16x16",
+      "blocks": 32768,
+      "threads_per_block": 256,
+      "total_threads": 8388608
+    },
+    {
+      "kernel": "maxpool_2x2 (capa 1)",
+      "grid": "2x2x2048",
+      "block": "16x16",
+      "blocks": 8192,
+      "threads_per_block": 256,
+      "total_threads": 2097152
+    },
+    {
+      "kernel": "conv2d_3x3_bias_relu (capa 2)",
+      "grid": "2x2x4096",
+      "block": "16x16",
+      "blocks": 16384,
+      "threads_per_block": 256,
+      "total_threads": 4194304
+    },
+    {
+      "kernel": "maxpool_2x2 (capa 2)",
+      "grid": "1x1x4096",
+      "block": "16x16",
+      "blocks": 4096,
+      "threads_per_block": 256,
+      "total_threads": 1048576
+    },
+    {
+      "kernel": "conv2d_3x3_bias_relu (capa 3)",
+      "grid": "1x1x8192",
+      "block": "16x16",
+      "blocks": 8192,
+      "threads_per_block": 256,
+      "total_threads": 2097152
+    },
+    {
+      "kernel": "maxpool_2x2 (capa 3)",
+      "grid": "1x1x8192",
+      "block": "16x16",
+      "blocks": 8192,
+      "threads_per_block": 256,
+      "total_threads": 2097152
+    },
+    {
+      "kernel": "matmul_bias_act (Dense 1)",
+      "grid": "8x4",
+      "block": "16x16",
+      "blocks": 32,
+      "threads_per_block": 256,
+      "total_threads": 8192
+    },
+    {
+      "kernel": "matmul_bias_act (Dense 2)",
+      "grid": "2x4",
+      "block": "16x16",
+      "blocks": 8,
+      "threads_per_block": 256,
+      "total_threads": 2048
+    },
+    {
+      "kernel": "softmax_rows",
+      "grid": "1",
+      "block": "64",
+      "blocks": 1,
+      "threads_per_block": 64,
+      "total_threads": 64
+    }
+  ],
+  "adam_check_max_abs_diff_vs_numpy": 5.960464477539063e-08,
+  "timings": [
+    {
+      "layer": "Conv2D 1 + sesgo + ReLU",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 60.61948799469974,
+      "mean_ms": 62.378931650164304,
+      "stdev_ms": 4.444628519151849,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 1 + sesgo + ReLU",
+      "implementation": "GPU Numba v1 (directo)",
+      "grid": "4x4x2048",
+      "block": "16x16",
+      "median_ms": 3.7819405006302986,
+      "mean_ms": 3.578704150640988,
+      "stdev_ms": 0.41002595018333704,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 1 + sesgo + ReLU",
+      "implementation": "GPU Numba v2 (memoria compartida)",
+      "grid": "4x4x256",
+      "block": "16x16",
+      "median_ms": 1.6082680012914352,
+      "mean_ms": 1.6088631506136153,
+      "stdev_ms": 0.006817161034536692,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 1 + sesgo + ReLU",
+      "implementation": "GPU TensorFlow (cuDNN)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.9583454993844498,
+      "mean_ms": 0.9615130493330071,
+      "stdev_ms": 0.007837713109290413,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 1",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 14.045587504369905,
+      "mean_ms": 14.168550199246965,
+      "stdev_ms": 0.5526807765135492,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 1",
+      "implementation": "GPU kernel Numba",
+      "grid": "2x2x2048",
+      "block": "16x16",
+      "median_ms": 0.3974799983552657,
+      "mean_ms": 0.3996434992586728,
+      "stdev_ms": 0.0047446975279744185,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 1",
+      "implementation": "GPU TensorFlow (cuDNN)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.1867895007308107,
+      "mean_ms": 0.19046354973397683,
+      "stdev_ms": 0.008464685409231181,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 2 + sesgo + ReLU",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 45.434207499056356,
+      "mean_ms": 44.91467725019902,
+      "stdev_ms": 2.5200015560200058,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 2 + sesgo + ReLU",
+      "implementation": "GPU Numba v1 (directo)",
+      "grid": "2x2x4096",
+      "block": "16x16",
+      "median_ms": 24.446684998110868,
+      "mean_ms": 24.45289240022248,
+      "stdev_ms": 0.20810977879625434,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 2 + sesgo + ReLU",
+      "implementation": "GPU Numba v2 (memoria compartida)",
+      "grid": "2x2x512",
+      "block": "16x16",
+      "median_ms": 2.729888499743538,
+      "mean_ms": 2.6161325000430224,
+      "stdev_ms": 0.15942639424569244,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 2 + sesgo + ReLU",
+      "implementation": "GPU TensorFlow (cuDNN)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.7655769986740779,
+      "mean_ms": 0.770846450177487,
+      "stdev_ms": 0.010000907307849187,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 2",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 5.079972997918958,
+      "mean_ms": 5.987674300558865,
+      "stdev_ms": 1.769135233994865,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 2",
+      "implementation": "GPU kernel Numba",
+      "grid": "1x1x4096",
+      "block": "16x16",
+      "median_ms": 0.22175800040713511,
+      "mean_ms": 0.22318290066323243,
+      "stdev_ms": 0.0032363580990261314,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 2",
+      "implementation": "GPU TensorFlow (cuDNN)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.12217100083944388,
+      "mean_ms": 0.1231660986377392,
+      "stdev_ms": 0.005811546802391135,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 3 + sesgo + ReLU",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 26.40074950249982,
+      "mean_ms": 30.421137049779645,
+      "stdev_ms": 6.838674982565214,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 3 + sesgo + ReLU",
+      "implementation": "GPU Numba v1 (directo)",
+      "grid": "1x1x8192",
+      "block": "16x16",
+      "median_ms": 23.093501000403194,
+      "mean_ms": 23.6882956502086,
+      "stdev_ms": 1.0538705978432048,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 3 + sesgo + ReLU",
+      "implementation": "GPU Numba v2 (memoria compartida)",
+      "grid": "1x1x1024",
+      "block": "16x16",
+      "median_ms": 2.8895504983665887,
+      "mean_ms": 2.7842425493872724,
+      "stdev_ms": 0.15820068847557955,
+      "repeats": 20
+    },
+    {
+      "layer": "Conv2D 3 + sesgo + ReLU",
+      "implementation": "GPU TensorFlow (cuDNN)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.5856504976691213,
+      "mean_ms": 0.5906765996769536,
+      "stdev_ms": 0.010125123257141771,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 3",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 2.2066865021770354,
+      "mean_ms": 2.2181738997460343,
+      "stdev_ms": 0.08056014604977337,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 3",
+      "implementation": "GPU kernel Numba",
+      "grid": "1x1x8192",
+      "block": "16x16",
+      "median_ms": 0.16050100020947866,
+      "mean_ms": 0.1613667485798942,
+      "stdev_ms": 0.0023991510419743996,
+      "repeats": 20
+    },
+    {
+      "layer": "MaxPooling 3",
+      "implementation": "GPU TensorFlow (cuDNN)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.23620049978489988,
+      "mean_ms": 0.38823065005999524,
+      "stdev_ms": 0.6666957602767659,
+      "repeats": 20
+    },
+    {
+      "layer": "Dense 1 (ReLU)",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.5833084978803527,
+      "mean_ms": 0.5834849005623255,
+      "stdev_ms": 0.01632589572757788,
+      "repeats": 20
+    },
+    {
+      "layer": "Dense 1 (ReLU)",
+      "implementation": "GPU kernel Numba",
+      "grid": "8x4",
+      "block": "16x16",
+      "median_ms": 0.6418395023501944,
+      "mean_ms": 0.6415983498300193,
+      "stdev_ms": 0.002227711521969138,
+      "repeats": 20
+    },
+    {
+      "layer": "Dense 1 (ReLU)",
+      "implementation": "GPU TensorFlow (cuBLAS)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.33460250051575713,
+      "mean_ms": 0.33627385055297054,
+      "stdev_ms": 0.011489991417246768,
+      "repeats": 20
+    },
+    {
+      "layer": "Dense 2 (logits)",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.015011501091066748,
+      "mean_ms": 0.015049249122967012,
+      "stdev_ms": 0.00015239226234219257,
+      "repeats": 20
+    },
+    {
+      "layer": "Dense 2 (logits)",
+      "implementation": "GPU kernel Numba",
+      "grid": "2x4",
+      "block": "16x16",
+      "median_ms": 0.11402249947423115,
+      "mean_ms": 0.1149850995716406,
+      "stdev_ms": 0.004202754902616017,
+      "repeats": 20
+    },
+    {
+      "layer": "Dense 2 (logits)",
+      "implementation": "GPU TensorFlow (cuBLAS)",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.29495350099750794,
+      "mean_ms": 0.2960584493848728,
+      "stdev_ms": 0.0074183010230317835,
+      "repeats": 20
+    },
+    {
+      "layer": "Softmax",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.028336497052805498,
+      "mean_ms": 0.028812549862777814,
+      "stdev_ms": 0.002139166636870562,
+      "repeats": 20
+    },
+    {
+      "layer": "Softmax",
+      "implementation": "GPU kernel Numba",
+      "grid": "1",
+      "block": "64",
+      "median_ms": 0.0769005018810276,
+      "mean_ms": 0.07722324990027118,
+      "stdev_ms": 0.002341203711877375,
+      "repeats": 20
+    },
+    {
+      "layer": "Softmax",
+      "implementation": "GPU TensorFlow",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.1389780009048991,
+      "mean_ms": 0.13945330065325834,
+      "stdev_ms": 0.0067417389080554856,
+      "repeats": 20
+    },
+    {
+      "layer": "Forward completo (lote 64)",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 158.54298299746006,
+      "mean_ms": 176.53924009973707,
+      "stdev_ms": 35.75522458820799,
+      "repeats": 20
+    },
+    {
+      "layer": "Forward completo (lote 64)",
+      "implementation": "GPU kernels Numba (conv v1)",
+      "grid": "",
+      "block": "",
+      "median_ms": 56.22618450070149,
+      "mean_ms": 57.06707785029721,
+      "stdev_ms": 3.0717735306293554,
+      "repeats": 20
+    },
+    {
+      "layer": "Forward completo (lote 64)",
+      "implementation": "GPU kernels Numba (conv v2)",
+      "grid": "",
+      "block": "",
+      "median_ms": 11.662132001220016,
+      "mean_ms": 11.369720649599913,
+      "stdev_ms": 1.1393875982957105,
+      "repeats": 20
+    },
+    {
+      "layer": "Forward completo (lote 64)",
+      "implementation": "GPU TensorFlow (cuDNN/cuBLAS)",
+      "grid": "",
+      "block": "",
+      "median_ms": 5.687864002538845,
+      "mean_ms": 5.727896649113973,
+      "stdev_ms": 0.18959171807233505,
+      "repeats": 20
+    },
+    {
+      "layer": "Copia host→GPU del lote (3.1 MB)",
+      "implementation": "cuda.to_device",
+      "grid": "",
+      "block": "",
+      "median_ms": 0.813939499494154,
+      "mean_ms": 0.9794290494028247,
+      "stdev_ms": 0.3910735118826524,
+      "repeats": 20
+    },
+    {
+      "layer": "Adam, 1,145,693 parámetros",
+      "implementation": "CPU NumPy",
+      "grid": "",
+      "block": "",
+      "median_ms": 6.2059444971964695,
+      "mean_ms": 6.61814465020143,
+      "stdev_ms": 1.4177870933737386,
+      "repeats": 20
+    },
+    {
+      "layer": "Adam, 1,145,693 parámetros",
+      "implementation": "GPU kernel Numba",
+      "grid": "4476",
+      "block": "256",
+      "median_ms": 0.15502999667660333,
+      "mean_ms": 0.15531364988419227,
+      "stdev_ms": 0.0017001155817909712,
+      "repeats": 20
+    },
+    {
+      "layer": "Adam, 1,145,693 parámetros",
+      "implementation": "GPU TensorFlow (Keras Adam)",
+      "grid": "",
+      "block": "",
+      "median_ms": 1.087257496692473,
+      "mean_ms": 1.088811899535358,
+      "stdev_ms": 0.03469499798185959,
+      "repeats": 20
+    }
+  ],
+  "numpy_threads_note": "NumPy usa BLAS multihilo (tensordot/matmul) en la referencia CPU."
+}

@@ -2,6 +2,7 @@
 
 --device cpu  oculta las GPU antes de importar TensorFlow (referencia de la parte 1).
 --device gpu  coloca pesos, gradientes y optimizador en /GPU:0 (CUDA/cuDNN/cuBLAS).
+--optimizer numba  (con --device gpu) actualiza los pesos con el kernel Adam propio en CUDA Python.
 En ambos casos la lectura del NPZ, la normalización y tf.data se ejecutan en CPU;
 solo cambia el dispositivo del modelo, de modo que la carga de trabajo es la misma.
 """
@@ -164,7 +165,8 @@ def run(args):
             if args.smoke:
                 result["run_kind"] = "smoke"
             else:
-                result["run_kind"] = f"baseline_{result['device'].lower()}" + ("_tf32" if args.allow_tf32 else "")
+                result["run_kind"] = (f"baseline_{result['device'].lower()}" + ("_tf32" if args.allow_tf32 else "")
+                                      + ("_numba_adam" if args.optimizer == "numba" else ""))
             result["tf_device"] = device
             result["visible_gpus"] = [str(d) for d in visible_gpus]
             result["gpu_details"] = [tf.config.experimental.get_device_details(d) for d in visible_gpus]
@@ -237,6 +239,11 @@ def run(args):
                 raise RuntimeError(f"Se detectaron variables del modelo fuera de {device}: {result['weight_devices']}")
             result["model_parameters"] = model.count_params()
             result["initial_weights_sha256"] = weight_hash(model)
+            result["optimizer_implementation"] = args.optimizer
+            if args.optimizer == "numba":
+                # Importar compila los kernels Numba (firma explícita): fuera del tiempo de fit.
+                from .cuda_kernels import NUMBA_SETUP
+                result["numba_setup"] = NUMBA_SETUP
             times["build_model_and_input_s"] = perf_counter() - start
             model.save_weights(args.output_dir / "initial.weights.h5")
             (args.output_dir / "model.json").write_text(model.to_json(), encoding="utf-8")
@@ -263,20 +270,40 @@ def run(args):
                 tf.config.experimental.reset_memory_stats("GPU:0")
             mark("train_with_validation")
             start = perf_counter()
+            callbacks = [Progress(), tf.keras.callbacks.CSVLogger(str(args.output_dir / "epochs.csv"))]
             with tf.device(device):
-                history = model.fit(datasets["train"], validation_data=datasets["val"],
-                                    epochs=result["epochs_requested"], verbose=2,
-                                    shuffle=False,
-                                    callbacks=[Progress(), tf.keras.callbacks.CSVLogger(str(args.output_dir / "epochs.csv"))])
+                if args.optimizer == "numba":
+                    from .numba_adam import fit_with_numba_adam
+                    history, numba_adam = fit_with_numba_adam(
+                        tf, model, datasets, result["epochs_requested"], config["learning_rate"], callbacks)
+                else:
+                    history = model.fit(datasets["train"], validation_data=datasets["val"],
+                                        epochs=result["epochs_requested"], verbose=2,
+                                        shuffle=False, callbacks=callbacks).history
             sync_device(tf)
             times["train_with_validation_s"] = perf_counter() - start
-            result["epochs_completed"] = len(history.history["loss"])
-            # Adam crea sus momentos dentro de fit; también deben estar en el dispositivo elegido.
-            result["optimizer_variable_devices"] = sorted(
-                {v.handle.device for v in model.optimizer.variables if hasattr(v, "handle")})
-            if any(expected not in d for d in result["optimizer_variable_devices"]):
-                raise RuntimeError(f"Variables de Adam fuera de {device}: {result['optimizer_variable_devices']}")
-            print(f"Dispositivos de las variables de Adam: {result['optimizer_variable_devices']}", flush=True)
+            result["epochs_completed"] = len(history["loss"])
+            if args.optimizer == "numba":
+                # Momentos m y v de Adam: arreglos CuPy en la GPU, actualizados por el kernel propio.
+                result["optimizer_variable_devices"] = [numba_adam.state_device()]
+                result["numba_adam"] = {
+                    "steps": numba_adam.iterations,
+                    "kernel_launches": numba_adam.iterations * len(numba_adam.configs),
+                    "kernel_and_sync_s": numba_adam.kernel_seconds,
+                    "dlpack_interop_and_assign_s": numba_adam.interop_seconds,
+                    "launch_configuration": numba_adam.launch_table(),
+                    "note": "Tiempos incluidos dentro de train_with_validation_s; no sumarlos otra vez.",
+                }
+                print(f"Adam Numba: {numba_adam.iterations} pasos, kernel+sincronización "
+                      f"{numba_adam.kernel_seconds:.2f} s, DLPack/assign {numba_adam.interop_seconds:.2f} s, "
+                      f"estado en {result['optimizer_variable_devices'][0]}", flush=True)
+            else:
+                # Adam crea sus momentos dentro de fit; también deben estar en el dispositivo elegido.
+                result["optimizer_variable_devices"] = sorted(
+                    {v.handle.device for v in model.optimizer.variables if hasattr(v, "handle")})
+                if any(expected not in d for d in result["optimizer_variable_devices"]):
+                    raise RuntimeError(f"Variables de Adam fuera de {device}: {result['optimizer_variable_devices']}")
+                print(f"Dispositivos de las variables de Adam: {result['optimizer_variable_devices']}", flush=True)
             if device == "/GPU:0":
                 info = tf.config.experimental.get_memory_info("GPU:0")
                 result["gpu_memory_tf_bytes"] = {"current": int(info["current"]), "peak_during_fit": int(info["peak"])}
@@ -334,11 +361,15 @@ def main():
                         help="initial.weights.h5 de otra ejecución para partir de los mismos pesos")
     parser.add_argument("--allow-tf32", action="store_true",
                         help="permite TensorFloat-32 en GPU Ampere; experimento separado, no float32 estricto")
+    parser.add_argument("--optimizer", choices=("keras", "numba"), default="keras",
+                        help="keras: Adam de TensorFlow; numba: Adam con kernel CUDA propio (requiere --device gpu)")
     parser.add_argument("--threads", type=int, default=8)
     parser.add_argument("--smoke", action="store_true", help="1 época, 16/4/4 imágenes por clase; no es un benchmark")
     args = parser.parse_args()
     if args.threads < 1:
         parser.error("--threads debe ser positivo")
+    if args.optimizer == "numba" and args.device != "gpu":
+        parser.error("--optimizer numba requiere --device gpu")
     if args.initial_weights and not args.initial_weights.is_file():
         parser.error(f"No existe {args.initial_weights}")
     if args.output_dir.exists() and any(args.output_dir.iterdir()):

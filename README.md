@@ -94,7 +94,37 @@ Además de los archivos de la versión CPU, cada corrida guarda `gpu.csv` (nvidi
 .venv/bin/python -m asl_cpu.profile_kernels --output-dir results/mi_kernels
 ```
 
-`profile_kernels` perfila pasos de entrenamiento con CUPTI y guarda grid, block, registros y ocupación de cada kernel CUDA que lanzan cuDNN, cuBLAS y TensorFlow. Diseño, decisiones y resultados en [docs/PARTE_2.md](docs/PARTE_2.md).
+`profile_kernels` perfila pasos de entrenamiento con CUPTI y guarda grid, block, registros y ocupación de cada kernel CUDA que lanzan cuDNN, cuBLAS y TensorFlow.
+
+### Kernels propios en CUDA Python (Numba)
+
+`asl_cpu/cuda_kernels.py` contiene los kernels diseñados por el equipo, cada uno con su distribución de hilos, bloques y grid:
+
+- Adam (un hilo por parámetro);
+- convolución 3 × 3 directa (v1) y con teselas en memoria compartida (v2);
+- MaxPooling, multiplicación de matrices con teselas 16 × 16 y softmax.
+
+```bash
+.venv/bin/python -m asl_cpu.train --device gpu --optimizer numba --output-dir results/mi_gpu_numba_01
+.venv/bin/python -m asl_cpu.benchmark_kernels --weights results/mi_gpu_01/final.weights.h5 --output-dir results/mi_kernels_numba
+```
+
+- `--optimizer numba`: TensorFlow calcula los gradientes y el kernel propio actualiza los pesos. Los tensores pasan entre ambos por DLPack sin salir de la GPU.
+- `benchmark_kernels`: ejecuta el forward completo de la CNN entrenada solo con los kernels propios, verifica que clasifica igual que TensorFlow y mide cada capa en NumPy (CPU), Numba (GPU) y cuDNN.
+
+En este equipo (driver 12.4) se usa el target CUDA incluido en `numba` junto con `pynvjitlink`; `cuda_kernels.setup_numba_cuda()` configura NVVM y libcudart de los paquetes pip. No instalar `numba-cuda`, que exige un driver de la serie 12.5 o superior.
+
+### Evidencia con capturas de pantalla
+
+Abrir una terminal con `watch -n 0.5 nvidia-smi` y el Monitor del sistema (pestaña Recursos), y en otra terminal:
+
+```bash
+bash scripts/evidencia_parte2.sh
+```
+
+El script corre en orden la versión CPU, la GPU con Adam de Keras y la GPU con el kernel Numba. Antes de cada una pausa para que se tomen las capturas durante el entrenamiento. Al terminar genera gráficos y comparaciones en `results/capturas_<fecha>/`, donde también deben guardarse las imágenes.
+
+Diseño, decisiones y resultados en [docs/PARTE_2.md](docs/PARTE_2.md).
 
 ## Evidencia y documentación
 
