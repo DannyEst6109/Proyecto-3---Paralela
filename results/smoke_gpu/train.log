@@ -1,0 +1,54 @@
+GPU visibles: ["PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')"] | detalles: [{'compute_capability': (8, 6), 'device_name': 'NVIDIA GeForce RTX 3060 Laptop GPU'}]
+CUDA 12.5.1 | cuDNN 9 | modelo en /GPU:0
+Muestras: {'train': 464, 'val': 116, 'test': 116}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:GPU:0']
+8/8 - 4s - 446ms/step - accuracy: 0.0560 - loss: 3.3584 - val_accuracy: 0.0776 - val_loss: 3.3310
+Dispositivos de las variables de Adam: ['/job:localhost/replica:0/task:0/device:GPU:0']
+Memoria GPU de TensorFlow: pico 241.5 MiB, actual 15.3 MiB
+{
+  "times": {
+    "tensorflow_setup_s": 1.8298402509999505,
+    "load_and_verify_s": 1.463331007999841,
+    "normalize_cpu_s": 0.015728407000096922,
+    "build_model_and_input_s": 0.6358324279999579,
+    "train_with_validation_s": 3.5705459160008104,
+    "evaluate_and_predictions_s": 0.13108280300002662,
+    "save_final_weights_s": 0.03622679300042364,
+    "run_wall_s": 7.728106751999803
+  },
+  "validation": {
+    "accuracy": 0.07758620381355286,
+    "loss": 3.33101224899292
+  },
+  "test": {
+    "accuracy": 0.12931033968925476,
+    "loss": 3.353588819503784
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "status": "complete",
+  "run_kind": "baseline_gpu",
+  "device_requested": "gpu",
+  "device": "GPU",
+  "process_pid": 588415,
+  "config": {
+    "seed": 42,
+    "image_size": 64,
+    "block_size": 100,
+    "block_margin": 25,
+    "train_blocks": 21,
+    "val_blocks": 4,
+    "test_blocks": 5,
+    "samples_per_class": {
+      "train": 420,
+      "val": 90,
+      "test": 90
+    },
+    "model": "cnn_base",
+    "epochs": 20,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "augmentation": false,
+    "early_stopping": false,
+    "precision": "float32"
+  },
+  "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+  "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+  "source_array_sha256": {
+    "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+    "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+    "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+    "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+    "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+    "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+    "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+  },
+  "epochs_requested": 20,
+  "cpu_threads": 8,
+  "data_threads": 1,
+  "smoke_samples_per_class": null,
+  "warmup": "none; la primera época incluye trazado y compilación de las funciones de entrenamiento",
+  "environment": {
+    "recorded_at": "2026-11-13T21:37:03.363533-06:00",
+    "platform": "Linux-6.8.0-45-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+    "physical_cores": 8,
+    "logical_cpus": 16,
+    "ram_bytes": 16533823488,
+    "packages": {
+      "tensorflow": "2.21.0",
+      "keras": "3.15.1",
+      "numpy": "2.2.6",
+      "pandas": "2.3.3",
+      "opencv-python-headless": "4.12.0.88",
+      "pyarrow": "22.0.0",
+      "psutil": "7.1.3"
+    }
+  },
+  "times": {
+    "tensorflow_setup_s": 2.0414601390002645,
+    "load_and_verify_s": 1.212489455996547,
+    "normalize_cpu_s": 0.18582794200483477,
+    "build_model_and_input_s": 1.0985927820001962,
+    "train_with_validation_s": 47.17417268000281,
+    "evaluate_and_predictions_s": 0.5345140620047459,
+    "save_final_weights_s": 0.0358183040007134,
+    "run_wall_s": 52.492986937999376
+  },
+  "phase_marks": [
+    {
+      "phase": "tensorflow_setup",
+      "unix_time": 1794627423.3658187
+    },
+    {
+      "phase": "load_prepared_data",
+      "unix_time": 1794627425.4073982
+    },
+    {
+      "phase": "normalize_cpu",
+      "unix_time": 1794627426.7944357
+    },
+    {
+      "phase": "build_model_and_input",
+      "unix_time": 1794627426.9804084
+    },
+    {
+      "phase": "train_with_validation",
+      "unix_time": 1794627428.1076949
+    },
+    {
+      "phase": "evaluate",
+      "unix_time": 1794627475.282036
+    },
+    {
+      "phase": "save_model",
+      "unix_time": 1794627475.8165534
+    },
+    {
+      "phase": "done",
+      "unix_time": 1794627475.8580828
+    }
+  ],
+  "preloaded_cuda_libraries": [
+    "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/nvidia/cusolver/lib/libcusolver.so.11"
+  ],
+  "tensor_float_32": false,
+  "tf_device": "/GPU:0",
+  "visible_gpus": [
+    "PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')"
+  ],
+  "gpu_details": [
+    {
+      "compute_capability": [
+        8,
+        6
+      ],
+      "device_name": "NVIDIA GeForce RTX 3060 Laptop GPU"
+    }
+  ],
+  "logical_devices": [
+    "LogicalDevice(name='/device:CPU:0', device_type='CPU')",
+    "LogicalDevice(name='/device:GPU:0', device_type='GPU')"
+  ],
+  "tensorflow_build": {
+    "cpu_compiler": "clang",
+    "cuda_compute_capabilities": [
+      "sm_60",
+      "sm_70",
+      "sm_80",
+      "sm_89",
+      "compute_90"
+    ],
+    "cuda_version": "12.5.1",
+    "cudnn_version": "9",
+    "is_cuda_build": true,
+    "is_rocm_build": false,
+    "is_tensorrt_build": false
+  },
+  "used_array_sha256": {
+    "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+    "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+    "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+    "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+    "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+    "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+    "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+  },
+  "sample_counts": {
+    "train": 12180,
+    "val": 2610,
+    "test": 2610
+  },
+  "transfers": {
+    "per_pass_bytes": {
+      "train": 598695720,
+      "val": 128291940,
+      "test": 128291940
+    },
+    "fit_h2d_bytes": 14539753200,
+    "evaluate_predict_h2d_bytes": 384875820,
+    "note": "fit copia train y val en cada época; después evaluate(val), evaluate(test) y predict(test). Las copias device->host (pérdida/métricas por lote y probabilidades finales) son de pocos bytes por lote. Los pesos se copian a la GPU una sola vez al crearlos y vuelven al host solo al guardarlos."
+  },
+  "input_pipeline_device": "/CPU:0",
+  "weight_devices": [
+    "/job:localhost/replica:0/task:0/device:GPU:0"
+  ],
+  "model_parameters": 1145693,
+  "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+  "optimizer_implementation": "keras",
+  "epochs_completed": 20,
+  "optimizer_variable_devices": [
+    "/job:localhost/replica:0/task:0/device:GPU:0"
+  ],
+  "gpu_memory_tf_bytes": {
+    "current": 16025856,
+    "peak_during_fit": 253244416
+  },
+  "validation": {
+    "accuracy": 0.7467433214187622,
+    "loss": 1.3658428192138672
+  },
+  "test": {
+    "accuracy": 0.8088122606277466,
+    "loss": 1.010601282119751
+  },
+  "final_weights_sha256": "af9521ae7d171d803253e8c308217e0acc1f02bcf8c44de01bea4b85c0e40b1f",
+  "timing_notes": "train_with_validation_s es fit completo e incluye validación de cada época. evaluate_and_predictions_s es evaluación posterior, predicción y exportación. load_and_verify_s incluye descompresión y hashes. run_wall_s incluye setup, E/S y monitor; no incluye la preparación previa ni el arranque del intérprete. Los monitores CPU (psutil) y GPU (nvidia-smi) se ejecutan en ambas versiones. En GPU se llama tf.test.experimental.sync_devices() al final de cada época, de fit y de la evaluación antes de detener el reloj; las copias host->device de cada lote están incluidas en los tiempos de fit y evaluación."
+}

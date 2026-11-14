@@ -76,3 +76,65 @@ class ResourceMonitor:
                 previous_time = now
                 if self._stop.wait(self.interval):
                     break
+
+
+GPU_QUERY = ("timestamp,utilization.gpu,utilization.memory,memory.used,memory.total,"
+             "power.draw,temperature.gpu,clocks.sm")
+GPU_FIELDS = ["timestamp", "gpu_util_percent", "gpu_mem_util_percent", "gpu_mem_used_mib",
+              "gpu_mem_total_mib", "power_w", "temperature_c", "sm_clock_mhz"]
+
+
+def nvidia_smi_snapshot() -> str:
+    """Salida textual de nvidia-smi y de los procesos con contexto CUDA."""
+    import shutil
+    import subprocess
+    exe = shutil.which("nvidia-smi")
+    if exe is None:
+        return "nvidia-smi no disponible\n"
+    parts = []
+    for command in ([exe], [exe, "--query-compute-apps=pid,process_name,used_memory", "--format=csv"]):
+        try:
+            parts.append(subprocess.run(command, capture_output=True, text=True, timeout=20).stdout)
+        except (OSError, subprocess.SubprocessError) as error:
+            parts.append(f"{command}: {error}\n")
+    return "\n".join(parts)
+
+
+class GpuMonitor:
+    """Muestrea la GPU NVIDIA con `nvidia-smi --loop-ms` en un proceso aparte.
+
+    Se usa igual en CPU y GPU: en la referencia CPU sirve como evidencia de que la GPU
+    permanece inactiva. Si no hay nvidia-smi, no hace nada (available=False).
+    """
+
+    def __init__(self, path: Path, interval_ms: int = 500):
+        self.path = path
+        self.interval_ms = interval_ms
+        self.available = False
+        self._process = None
+        self._stream = None
+
+    def __enter__(self):
+        import shutil
+        import subprocess
+        exe = shutil.which("nvidia-smi")
+        if exe is None:
+            return self
+        self._stream = self.path.open("w", encoding="utf-8", newline="")
+        self._stream.write(",".join(GPU_FIELDS) + "\n")
+        self._stream.flush()
+        self._process = subprocess.Popen(
+            [exe, f"--query-gpu={GPU_QUERY}", "--format=csv,noheader,nounits", f"--loop-ms={self.interval_ms}"],
+            stdout=self._stream, stderr=subprocess.DEVNULL)
+        self.available = True
+        return self
+
+    def __exit__(self, *args):
+        if self._process is not None:
+            self._process.terminate()
+            try:
+                self._process.wait(timeout=5)
+            except Exception:
+                self._process.kill()
+        if self._stream is not None:
+            self._stream.close()

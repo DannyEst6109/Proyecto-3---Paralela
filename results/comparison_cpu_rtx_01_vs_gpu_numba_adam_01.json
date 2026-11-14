@@ -1,0 +1,111 @@
+{
+  "cpu_run": "results/cpu_rtx_01",
+  "gpu_run": "results/gpu_numba_adam_01",
+  "devices": {
+    "cpu": [
+      "/job:localhost/replica:0/task:0/device:CPU:0"
+    ],
+    "gpu": [
+      "/job:localhost/replica:0/task:0/device:GPU:0"
+    ]
+  },
+  "same_workload": {
+    "config_sha256": true,
+    "partition_sha256": true,
+    "used_array_sha256": true,
+    "initial_weights_sha256": true,
+    "model_parameters": true,
+    "epochs_completed": true,
+    "sample_counts": true
+  },
+  "final_metrics": {
+    "validation_accuracy": {
+      "cpu": 0.7448275685310364,
+      "gpu": 0.7187739610671997,
+      "gpu_minus_cpu": -0.02605360746383667
+    },
+    "validation_loss": {
+      "cpu": 1.3074605464935303,
+      "gpu": 1.4225070476531982,
+      "gpu_minus_cpu": 0.11504650115966797
+    },
+    "test_accuracy": {
+      "cpu": 0.8260536193847656,
+      "gpu": 0.7900382876396179,
+      "gpu_minus_cpu": -0.036015331745147705
+    },
+    "test_loss": {
+      "cpu": 0.8321143388748169,
+      "gpu": 1.1853810548782349,
+      "gpu_minus_cpu": 0.35326671600341797
+    }
+  },
+  "epoch_abs_diff": {
+    "max": {
+      "accuracy": 0.015435163121309547,
+      "loss": 0.03038443642101074,
+      "val_accuracy": 0.03371649980545044,
+      "val_loss": 0.20654737949371338
+    },
+    "first_epoch": {
+      "accuracy": 0.0033661704198481024,
+      "loss": 0.005731863615352051,
+      "val_accuracy": 0.01877394318580622,
+      "val_loss": 0.02102446556091353
+    },
+    "last_epoch": {
+      "accuracy": 0.002709330341890359,
+      "loss": 0.012105080678642993,
+      "val_accuracy": 0.02605360746383667,
+      "val_loss": 0.11504650115966775
+    }
+  },
+  "test_predictions": {
+    "argmax_agreement": 0.8199233716475096,
+    "max_abs_prob_diff": 0.9999999403953552,
+    "mean_abs_prob_diff": 0.012692208401858807
+  },
+  "single_pair_speedup": {
+    "tensorflow_setup_s": {
+      "cpu_s": 2.0492217459996027,
+      "gpu_s": 2.1306710979988566,
+      "speedup": 0.9617729117949027
+    },
+    "load_and_verify_s": {
+      "cpu_s": 1.497860612000295,
+      "gpu_s": 1.6372945550028817,
+      "speedup": 0.914838815913401
+    },
+    "normalize_cpu_s": {
+      "cpu_s": 0.22629110300022148,
+      "gpu_s": 0.3881817829969805,
+      "speedup": 0.5829513720430867
+    },
+    "build_model_and_input_s": {
+      "cpu_s": 0.5445207080001637,
+      "gpu_s": 3.122834342000715,
+      "speedup": 0.17436746505461578
+    },
+    "train_with_validation_s": {
+      "cpu_s": 254.05910279700038,
+      "gpu_s": 64.00609285000246,
+      "speedup": 3.9692956011607357
+    },
+    "evaluate_and_predictions_s": {
+      "cpu_s": 2.622492460000103,
+      "gpu_s": 0.6027770199943916,
+      "speedup": 4.350684204956094
+    },
+    "save_final_weights_s": {
+      "cpu_s": 0.026455049000105646,
+      "gpu_s": 0.027518193004652858,
+      "speedup": 0.9613657770200444
+    },
+    "run_wall_s": {
+      "cpu_s": 261.2740403610005,
+      "gpu_s": 72.19950111199432,
+      "speedup": 3.6187790266821622
+    }
+  },
+  "note": "Speedup de una sola pareja de corridas (CPU/GPU). Las cinco repeticiones y promedios corresponden a la parte 3."
+}

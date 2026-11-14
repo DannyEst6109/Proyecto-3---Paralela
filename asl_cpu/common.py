@@ -63,3 +63,24 @@ def environment() -> dict:
         "logical_cpus": psutil.cpu_count(), "ram_bytes": psutil.virtual_memory().total,
         "packages": packages,
     }
+
+
+def preload_pip_cuda_libraries() -> list[str]:
+    """Carga en el proceso las librerías CUDA de pip que el RPATH de TensorFlow no encuentra.
+
+    El wheel tensorflow 2.21 en Linux no incluye `nvidia/cusolver/lib` en su RPATH, por lo que
+    `tensorflow[and-cuda]` instala libcusolver.so.11 pero TF no la abre y omite la GPU
+    ("Cannot dlopen some GPU libraries"). Cargarla antes de importar TensorFlow, con RTLD_GLOBAL,
+    hace que el dlopen posterior la encuentre por su soname. En Windows/CPU no hace nada.
+    """
+    import ctypes
+    import importlib.util
+
+    loaded = []
+    if sys.platform != "linux" or importlib.util.find_spec("nvidia") is None:
+        return loaded
+    for base in importlib.util.find_spec("nvidia").submodule_search_locations:
+        for library in sorted(Path(base).glob("cusolver/lib/libcusolver.so.*")):
+            ctypes.CDLL(str(library), mode=ctypes.RTLD_GLOBAL)
+            loaded.append(str(library))
+    return loaded
