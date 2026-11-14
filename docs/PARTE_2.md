@@ -328,6 +328,43 @@ Lectura de los resultados:
   - Las fases en CPU y el arranque de CUDA (≈ 6 s) limitan el speedup total.
 - **Qué podría acelerar más (experimentos separados, no usados en la comparación):** TF32 o precisión mixta, un lote mayor, `jit_compile=True` (XLA, que fusiona kernels), `prefetch_to_device` y desactivar el determinismo. Cualquiera de ellos cambia la carga o la numérica, así que debe reportarse aparte.
 
+## Corrida de evidencia con capturas de pantalla
+
+El 13 de noviembre de 2026 se repitieron las tres configuraciones, comando por comando, en `results/capturas/`. Mientras corrían se tomaron capturas de `watch -n 0.5 nvidia-smi` junto a la terminal del entrenamiento. `compare_runs` confirmó que las tres corridas tienen la misma carga: configuración, datos, pesos iniciales `b1feb980…` y 20 épocas.
+
+| Medición | CPU (`cpu`) | GPU, Adam de Keras (`gpu_keras`) | GPU, kernel Adam Numba (`gpu_numba`) |
+|---|---:|---:|---:|
+| Entrenamiento con validación | 272.58 s | 47.17 s | 56.43 s |
+| Speedup del entrenamiento frente a CPU | 1.00 | 5.78 | 4.83 |
+| Ejecución completa del comando | 279.52 s | 52.49 s | 62.84 s |
+| Speedup total frente a CPU | 1.00 | 5.32 | 4.45 |
+| Media de las épocas 2–20 | 13.61 s | 2.19 s | 2.70 s |
+| Exactitud de prueba | 82.61 % | 80.88 % | 79.00 % |
+| Utilización de la GPU en fit (media / máx.) | 3 % / 68 % (escritorio) | 84 % / 90 % | 61 % / 67 % |
+| Memoria de la GPU usada (nvidia-smi) | 256 MiB, sin el proceso | 640 MiB | 700 MiB |
+| CPU del proceso en fit | 578 % (≈ 6 hilos) | 50 % | 61 % |
+
+**Las exactitudes coinciden exactamente con las corridas anteriores** (`cpu_rtx_01`, `gpu_baseline_01`, `gpu_numba_adam_01`). Con la misma semilla y `enable_op_determinism()`, cada configuración es reproducible en el mismo equipo. Los tiempos sí varían entre repeticiones:
+
+- CPU: 254 s y 273 s.
+- GPU con Keras: 43 s y 47 s.
+- GPU con Numba: 64 s y 56 s.
+
+Por eso los promedios de cinco repeticiones de la parte 3 son necesarios. El benchmark de kernels repetido (`results/capturas/kernels_numba/`) dio la misma exactitud del forward con kernels propios (80.88 %, 100 % de coincidencia con TensorFlow) y tiempos similares: forward completo de 151.9 ms en NumPy, 13.1 ms con Numba v2 y 4.7 ms con cuDNN; Adam en 0.15 ms con Numba frente a 1.07 ms con Keras.
+
+| Captura | Qué muestra |
+|---|---|
+| ![CPU durante el entrenamiento](../results/capturas/Corrida-CPU.png) `Corrida-CPU.png` | Entrenamiento CPU en la época 9 (≈ 70 ms/paso). Pesos en `device:CPU:0`. nvidia-smi: GPU en P8, 15 W, 5 %, y **ningún proceso python**. |
+| ![CPU al terminar](../results/capturas/Corrida-CPU-Final.png) `Corrida-CPU-Final.png` | Fin de la corrida CPU: Adam en `CPU:0`, `train_with_validation_s` = 272.6 s, exactitud de prueba 82.61 %. |
+| ![GPU durante el entrenamiento](../results/capturas/Corrida-GPU.png) `Corrida-GPU.png` | Entrenamiento GPU con Keras en la época 10 (≈ 10 ms/paso). Pesos en `device:GPU:0`. nvidia-smi: P0, 61 W, **85 % de utilización** y `.venv/bin/python` como proceso de cómputo (C) con 380 MiB. |
+| ![GPU al terminar](../results/capturas/Corrida-GPU-Final.png) `Corrida-GPU-Final.png` | Fin de la corrida GPU con Keras y sus tiempos. |
+| ![Kernel propio durante el entrenamiento](../results/capturas/Corrida-GPU-Kernel-propio.png) `Corrida-GPU-Kernel-propio.png` | Entrenamiento con el kernel Adam Numba (≈ 13 ms/paso). nvidia-smi: **60 % de utilización** y python con 440 MiB (TensorFlow, CuPy y Numba comparten el contexto CUDA). |
+| ![Kernel propio al terminar](../results/capturas/Corrida-GPU-Kernel-propio-final.png) `Corrida-GPU-Kernel-propio-final.png` | Fin: 3,820 pasos del kernel, 8.62 s de lanzamiento + sincronización y 7.20 s de DLPack + asignación, estado de Adam en la GPU; nvidia-smi ya sin el proceso. |
+
+La captura del kernel propio muestra `NumbaPerformanceWarning: Grid size 1/4/15/72 will likely result in GPU under-utilization`. No es un error: Numba avisa que los tensores pequeños del modelo (sesgos de 29–128 valores, la primera convolución con 864 pesos) generan grids de 1 a 72 bloques, que no llenan los 30 SM. Es exactamente el efecto que se discute arriba: con un hilo por parámetro, solo la capa Dense de 1,048,576 pesos (4,096 bloques) aprovecha la GPU completa. Juntar todos los parámetros en un solo arreglo y lanzar un único kernel por paso evitaría esos lanzamientos pequeños.
+
+La carga por núcleo del CPU queda registrada en `results/capturas/*/resources.csv` y graficada en `resources.png`: media de 44 % por procesador lógico durante la corrida CPU, frente a 5.5–6.9 % durante las corridas GPU.
+
 ## Funciones y librerías utilizadas
 
 | Librería | Funciones | Para qué |
@@ -362,8 +399,9 @@ Lectura de los resultados:
 | `results/smoke_gpu_numba/` | Prueba pequeña de integración del Adam Numba |
 | `results/kernels_numba/` | Exactitud del forward con kernels propios, tiempos por capa (CPU, Numba v1/v2, cuDNN) y grid/block de cada lanzamiento |
 | `tests/test_cuda_kernels.py` | Pruebas automáticas de cada kernel contra NumPy, incluidos tamaños no múltiplos del bloque |
+| `results/capturas/` | Corrida de evidencia: tres entrenamientos con capturas de nvidia-smi, sus logs, gráficos, comparaciones y el benchmark de kernels repetido |
 
-**Capturas de pantalla:** las toma una persona frente al equipo. `bash scripts/evidencia_parte2.sh` corre en orden una ejecución CPU, una GPU con Adam de Keras y una GPU con el kernel Numba, y pausa antes de cada una. Durante cada corrida se captura `watch -n 0.5 nvidia-smi` y el Monitor del sistema, y las imágenes se guardan en la carpeta `results/capturas_<fecha>/` que crea el script. Los CSV, gráficos y el texto de nvidia-smi son mediciones reales, pero no sustituyen las capturas.
+Para repetir la evidencia: `bash scripts/evidencia_parte2.sh`, o los mismos comandos uno por uno (ver README).
 
 ## Entrega a la persona 3
 

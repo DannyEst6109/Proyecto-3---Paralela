@@ -1,0 +1,101 @@
+GPU visibles: ["PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')"] | detalles: [{'compute_capability': (8, 6), 'device_name': 'NVIDIA GeForce RTX 3060 Laptop GPU'}]
+CUDA 12.5.1 | cuDNN 9 | modelo en /GPU:0
+Muestras: {'train': 12180, 'val': 2610, 'test': 2610}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                      │ (None, 64, 64, 32)          │             896 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d (MaxPooling2D)         │ (None, 32, 32, 32)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_1 (Conv2D)                    │ (None, 32, 32, 64)          │          18,496 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_1 (MaxPooling2D)       │ (None, 16, 16, 64)          │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ conv2d_2 (Conv2D)                    │ (None, 16, 16, 128)         │          73,856 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ max_pooling2d_2 (MaxPooling2D)       │ (None, 8, 8, 128)           │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ flatten (Flatten)                    │ (None, 8192)                │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense (Dense)                        │ (None, 128)                 │       1,048,704 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dropout (Dropout)                    │ (None, 128)                 │               0 │
+├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
+│ dense_1 (Dense)                      │ (None, 29)                  │           3,741 │
+└──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:GPU:0']
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 4 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 1 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 72 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 15 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+Epoch 1/20
+191/191 - 5s - 26ms/step - accuracy: 0.1869 - loss: 2.8030 - val_accuracy: 0.3648 - val_loss: 2.1141
+Epoch 2/20
+191/191 - 2s - 13ms/step - accuracy: 0.5149 - loss: 1.5207 - val_accuracy: 0.4958 - val_loss: 1.5189
+Epoch 3/20
+191/191 - 2s - 13ms/step - accuracy: 0.6964 - loss: 0.9178 - val_accuracy: 0.5812 - val_loss: 1.2735
+Epoch 4/20
+191/191 - 2s - 13ms/step - accuracy: 0.7705 - loss: 0.6581 - val_accuracy: 0.5908 - val_loss: 1.3163
+Epoch 5/20
+191/191 - 3s - 13ms/step - accuracy: 0.8411 - loss: 0.4725 - val_accuracy: 0.6874 - val_loss: 1.1004
+Epoch 6/20
+191/191 - 3s - 13ms/step - accuracy: 0.8687 - loss: 0.3726 - val_accuracy: 0.6920 - val_loss: 1.0324
+Epoch 7/20
+191/191 - 2s - 13ms/step - accuracy: 0.8938 - loss: 0.3143 - val_accuracy: 0.6621 - val_loss: 1.1915
+Epoch 8/20
+191/191 - 3s - 13ms/step - accuracy: 0.9122 - loss: 0.2494 - val_accuracy: 0.7149 - val_loss: 1.0860
+Epoch 9/20
+191/191 - 3s - 14ms/step - accuracy: 0.9251 - loss: 0.2236 - val_accuracy: 0.7230 - val_loss: 1.0797
+Epoch 10/20
+191/191 - 3s - 14ms/step - accuracy: 0.9318 - loss: 0.1960 - val_accuracy: 0.7103 - val_loss: 1.2112
+Epoch 11/20
+191/191 - 3s - 14ms/step - accuracy: 0.9372 - loss: 0.1805 - val_accuracy: 0.7261 - val_loss: 1.1309
+Epoch 12/20
+191/191 - 3s - 15ms/step - accuracy: 0.9442 - loss: 0.1585 - val_accuracy: 0.7241 - val_loss: 1.2122
+Epoch 13/20
+191/191 - 3s - 15ms/step - accuracy: 0.9511 - loss: 0.1396 - val_accuracy: 0.7299 - val_loss: 1.2242
+Epoch 14/20
+191/191 - 3s - 14ms/step - accuracy: 0.9517 - loss: 0.1311 - val_accuracy: 0.7142 - val_loss: 1.2875
+Epoch 15/20
+191/191 - 3s - 15ms/step - accuracy: 0.9512 - loss: 0.1371 - val_accuracy: 0.7249 - val_loss: 1.2359
+Epoch 16/20
+191/191 - 3s - 15ms/step - accuracy: 0.9550 - loss: 0.1292 - val_accuracy: 0.7238 - val_loss: 1.3880
+Epoch 17/20
+191/191 - 3s - 16ms/step - accuracy: 0.9626 - loss: 0.1037 - val_accuracy: 0.7345 - val_loss: 1.3362
+Epoch 18/20
+191/191 - 3s - 15ms/step - accuracy: 0.9603 - loss: 0.1154 - val_accuracy: 0.7444 - val_loss: 1.2754
+Epoch 19/20
+191/191 - 3s - 15ms/step - accuracy: 0.9667 - loss: 0.0934 - val_accuracy: 0.7368 - val_loss: 1.3988
+Epoch 20/20
+191/191 - 3s - 15ms/step - accuracy: 0.9686 - loss: 0.0890 - val_accuracy: 0.7188 - val_loss: 1.4225
+Adam Numba: 3820 pasos, kernel+sincronización 8.62 s, DLPack/assign 7.20 s, estado en cupy/numba device 0 (NVIDIA GeForce RTX 3060 Laptop GPU)
+Memoria GPU de TensorFlow: pico 236.2 MiB, actual 13.6 MiB
+{
+  "times": {
+    "tensorflow_setup_s": 1.7150757900017197,
+    "load_and_verify_s": 1.4493753630013089,
+    "normalize_cpu_s": 0.18939802900422364,
+    "build_model_and_input_s": 2.258431535999989,
+    "train_with_validation_s": 56.43022682899755,
+    "evaluate_and_predictions_s": 0.5306748850052827,
+    "save_final_weights_s": 0.022888640000019222,
+    "run_wall_s": 62.842686937998224
+  },
+  "validation": {
+    "accuracy": 0.7187739610671997,
+    "loss": 1.4225070476531982
+  },
+  "test": {
+    "accuracy": 0.7900382876396179,
+    "loss": 1.1853810548782349
+  }
+}
