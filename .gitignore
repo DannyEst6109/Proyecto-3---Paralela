@@ -9,3 +9,10 @@ __pycache__/
 # Generated model weights and per-image predictions.
 *.weights.h5
 predictions.npz
+
+# Parte 3: arreglos pesados de las repeticiones de preparación (se borran solos; por si se usa
+# --keep-prepared-arrays), corridas interrumpidas y paquetes de resultados descargados de Colab.
+results/**/asl_64x64.npz
+results/**/*.parquet
+results/**/*.incompleta-*/
+resultados_parte3_*.zip

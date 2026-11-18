@@ -126,6 +126,42 @@ El script corre en orden la versión CPU, la GPU con Adam de Keras y la GPU con 
 
 Diseño, decisiones y resultados en [docs/PARTE_2.md](docs/PARTE_2.md).
 
+## Parte 3: mediciones repetidas y comparación
+
+`asl_cpu.benchmark` ejecuta cada medición como un proceso nuevo de `asl_cpu.prepare` o `asl_cpu.train` (no cambia modelo, datos ni hiperparámetros), y `asl_cpu.analyze_benchmark` convierte las corridas en tablas, speedup por fase y gráficos.
+
+Experimento final en el equipo NVIDIA (≈ 60 min, reanudable, con pausas para tomar capturas):
+
+```bash
+bash scripts/parte3_benchmark.sh            # resultados en results/parte3/rtx3060/
+bash scripts/parte3_benchmark.sh --dry-run  # solo muestra el plan de corridas
+```
+
+Equivale a:
+
+```bash
+.venv/bin/python -m asl_cpu.benchmark --output-dir results/parte3/rtx3060 --label rtx3060 --reps 5 --threads 8 \
+    --prepare-workers 1,4 --cooldown 30 --cooldown-gpu-temp 60 --pause-before workers4:1,cpu:1,gpu_keras:1,gpu_numba:1
+.venv/bin/python -m asl_cpu.analyze_benchmark results/parte3/rtx3060
+```
+
+Segundo entorno en Google Colab (GPU T4): abrir `notebooks/Proyecto3_Colab_CUDA.ipynb` en Colab y ejecutar las celdas en orden. Cuando existan ambos experimentos:
+
+```bash
+.venv/bin/python -m asl_cpu.analyze_benchmark results/parte3/rtx3060 results/parte3/colab_t4 --output-dir results/parte3/comparacion
+```
+
+Política de medición, igual en CPU y GPU:
+
+- 5 repeticiones medidas por configuración: `cpu` (8 hilos), `gpu_keras` (Adam de Keras) y `gpu_numba` (kernel Adam propio). `cpu_1thread` existe como configuración opcional.
+- Calentamiento: una corrida `--smoke` descartada por configuración antes de medir. La primera época de cada corrida medida sigue incluyendo el trazado y la selección de algoritmos de cuDNN, y se reporta aparte de las épocas 2..N.
+- Orden intercalado y rotado entre configuraciones, pausa fija entre corridas y espera opcional a que la GPU baje de temperatura.
+- Preparación con 1 y 4 procesos: 1 corrida de calentamiento y 5 medidas por modo. Cada repetición debe reproducir exactamente los arreglos de `data/processed/baseline`; luego se borran sus archivos pesados.
+- Antes de analizar se verifica que todas las corridas medidas compartan configuración, particiones, arreglos, pesos iniciales, épocas y dispositivo. Si no, el análisis se detiene.
+- Speedup = tiempo promedio CPU / tiempo promedio GPU, por fase y para el total, con intervalo bootstrap del 95 %. Las transferencias host→GPU se reportan en bytes y GB/s, pero ya están dentro de fit y evaluación y no se suman otra vez.
+
+`results/parte3/<entorno>/` guarda `manifest.json` (comandos, orden, tiempos del proceso y estado de la GPU al inicio y al final de cada corrida), una carpeta por corrida y `analisis/` con `RESULTADOS.md`, CSV, `resumen.json` y los gráficos. `--smoke` en el orquestador sirve solo como prueba de integración.
+
 ## Evidencia y documentación
 
 ```powershell

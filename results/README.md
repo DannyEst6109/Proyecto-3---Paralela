@@ -1,6 +1,6 @@
-# Evidencia local de las partes 1 y 2
+# Evidencia de las partes 1, 2 y 3
 
-Esta carpeta contiene ejecuciones reales de preparación, entrenamiento CPU y entrenamiento CUDA. No contiene promedios de cinco entrenamientos (parte 3). Los pesos y predicciones permanecen locales y están excluidos de Git; los logs, metadatos, tablas y capturas sí pueden versionarse.
+Esta carpeta contiene ejecuciones reales de preparación, entrenamiento CPU y entrenamiento CUDA. Las carpetas de nivel superior son corridas individuales de las partes 1 y 2; los promedios de cinco repeticiones y el speedup final están en `parte3/`. Los pesos y predicciones permanecen locales y están excluidos de Git; los logs, metadatos, tablas y capturas sí pueden versionarse.
 
 | Carpeta | Contenido |
 |---|---|
@@ -19,6 +19,10 @@ Esta carpeta contiene ejecuciones reales de preparación, entrenamiento CPU y en
 | comparison_cpu_rtx_01_vs_gpu_numba_adam_01.json | Parte 2: misma carga verificada para la corrida con kernel propio |
 | capturas | Parte 2: corrida de evidencia del 13/11/2026 (CPU, GPU Keras, GPU kernel Numba) con capturas de pantalla de nvidia-smi, logs, gráficos, comparaciones y benchmark de kernels |
 | kernels_numba | Parte 2: forward de la CNN con kernels propios (exactitud vs TensorFlow) y tiempos por capa CPU / Numba / cuDNN |
+
+| parte3/rtx3060 | Parte 3: experimento final en la laptop RTX 3060, 5 repeticiones por configuración (se genera con `scripts/parte3_benchmark.sh`) |
+| parte3/colab_t4 | Parte 3: el mismo experimento en Google Colab (se genera con `notebooks/Proyecto3_Colab_CUDA.ipynb`) |
+| parte3/comparacion | Parte 3: comparación entre ambos entornos |
 
 `hardware.json` registra procesador, GPU visible por Windows y RAM del equipo de la parte 1; el equipo de la parte 2 está descrito en `gpu_environment.json` y en `docs/PARTE_2.md`. El entorno Python y las librerías de cada ejecución están en sus propios metadatos. `validation.log` registra las comprobaciones finales del código.
 
