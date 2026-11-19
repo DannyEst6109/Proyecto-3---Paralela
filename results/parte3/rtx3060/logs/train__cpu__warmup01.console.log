@@ -1,0 +1,58 @@
+$ /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python -X utf8 -m asl_cpu.train --device cpu --threads 8 --data-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline --config /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json --output-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/cpu/warmup01 --smoke
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795046693.813548   31561 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795046694.626474   31561 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+E0000 00:00:1795046694.993432   31561 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+GPU visibles: [] | entrenamiento forzado a /CPU:0
+Muestras: {'train': 464, 'val': 116, 'test': 116}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:CPU:0']
+8/8 - 1s - 171ms/step - accuracy: 0.0539 - loss: 3.3585 - val_accuracy: 0.0776 - val_loss: 3.3312
+Dispositivos de las variables de Adam: ['/job:localhost/replica:0/task:0/device:CPU:0']
+{
+  "times": {
+    "tensorflow_setup_s": 1.3455736519999846,
+    "load_and_verify_s": 1.2968933259999176,
+    "normalize_cpu_s": 0.013309106000178872,
+    "build_model_and_input_s": 0.09668248000002677,
+    "train_with_validation_s": 1.3718604560001495,
+    "evaluate_and_predictions_s": 0.17592001400021218,
+    "save_final_weights_s": 0.025117588999819418,
+    "run_wall_s": 4.367770634999943
+  },
+  "validation": {
+    "accuracy": 0.07758620381355286,
+    "loss": 3.331245183944702
+  },
+  "test": {
+    "accuracy": 0.1034482792019844,
+    "loss": 3.353663444519043
+  }
+}

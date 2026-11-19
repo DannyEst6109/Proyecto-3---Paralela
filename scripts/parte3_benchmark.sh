@@ -15,7 +15,8 @@
 # aplicaciones cerradas. Abrir en otra terminal `watch -n 0.5 nvidia-smi` y el Monitor del sistema
 # (pestaña Recursos) para las capturas. Duración aproximada: 60 minutos. Es reanudable: si se
 # interrumpe, volver a ejecutar el mismo comando continúa donde quedó.
-set -euo pipefail
+set -eu
+#set -o pipefail
 cd "$(dirname "$0")/.."
 PY=${PY:-.venv/bin/python}
 OUT=${OUT:-results/parte3/rtx3060}

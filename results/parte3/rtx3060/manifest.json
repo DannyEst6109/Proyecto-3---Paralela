@@ -1,0 +1,2879 @@
+{
+  "schema": "parte3-benchmark-v1",
+  "created_at": "2026-11-18T17:55:57-06:00",
+  "label": "rtx3060",
+  "settings": {
+    "configs": [
+      "cpu",
+      "gpu_keras",
+      "gpu_numba"
+    ],
+    "reps": 5,
+    "reps_override": {},
+    "warmup": "smoke",
+    "threads": 8,
+    "prepare_workers": [
+      1,
+      4
+    ],
+    "prepare_reps": 5,
+    "prepare_warmup": 1,
+    "cooldown_s": 30.0,
+    "cooldown_gpu_temp_c": 60.0,
+    "smoke": false,
+    "data_dir": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+    "raw_dir": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+    "config_path": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+    "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+    "training_array_sha256": {
+      "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+      "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+      "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+      "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+      "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+      "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+      "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+    },
+    "order_policy": "preparación primero; después calentamiento por configuración y repeticiones intercaladas con orden rotado (la repetición r desplaza la lista r lugares)"
+  },
+  "runs": [
+    {
+      "name": "prepare/workers1/warmup01",
+      "kind": "prepare",
+      "role": "warmup",
+      "workers": 1,
+      "rep": 1,
+      "order": 1,
+      "run_dir": "prepare/workers1/warmup01",
+      "status": "complete",
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "1",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/warmup01"
+      ],
+      "started_at": "2026-11-18T17:55:57-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 44.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.22,
+        "utilization_percent": 29.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 17.533728735999944,
+      "finished_at": "2026-11-18T17:56:15-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers1__warmup01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 45.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.0,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.283716224000045,
+          "partition_s": 0.5407501869999578,
+          "images_s": 6.882602230999964,
+          "export_s": 5.150568088999989,
+          "prepare_wall_s": 17.176177717999963
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 1
+      }
+    },
+    {
+      "name": "prepare/workers4/warmup01",
+      "kind": "prepare",
+      "role": "warmup",
+      "workers": 4,
+      "rep": 1,
+      "order": 2,
+      "run_dir": "prepare/workers4/warmup01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "4",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers4/warmup01"
+      ],
+      "started_at": "2026-11-18T17:56:45-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 45.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.05,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 12.039835967000045,
+      "finished_at": "2026-11-18T17:56:57-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers4__warmup01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 45.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.08,
+        "utilization_percent": 9.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.221362567999904,
+          "partition_s": 0.5278341680000267,
+          "images_s": 1.5229413939999858,
+          "export_s": 5.1169730059999665,
+          "prepare_wall_s": 11.70244065999998
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 4
+      }
+    },
+    {
+      "name": "prepare/workers1/rep01",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 1,
+      "rep": 1,
+      "order": 3,
+      "run_dir": "prepare/workers1/rep01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "1",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/rep01"
+      ],
+      "started_at": "2026-11-18T17:57:27-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 45.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.02,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 15.455705831999921,
+      "finished_at": "2026-11-18T17:57:42-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers1__rep01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 46.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.1,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.099509698999896,
+          "partition_s": 0.522926722999955,
+          "images_s": 5.076765912999917,
+          "export_s": 5.096408304000079,
+          "prepare_wall_s": 15.107426855999961
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 1
+      }
+    },
+    {
+      "name": "prepare/workers4/rep01",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 4,
+      "rep": 1,
+      "order": 4,
+      "run_dir": "prepare/workers4/rep01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "4",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers4/rep01"
+      ],
+      "started_at": "2026-11-18T17:58:20-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 420.0,
+        "power_w": 15.12,
+        "utilization_percent": 2.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 12.304562639999972,
+      "finished_at": "2026-11-18T17:58:33-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers4__rep01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 52.0,
+        "sm_clock_mhz": 735.0,
+        "power_w": 34.24,
+        "utilization_percent": 2.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.078607429000044,
+          "partition_s": 0.5216631609999922,
+          "images_s": 1.6085182589999931,
+          "export_s": 5.4313705389999996,
+          "prepare_wall_s": 11.953081990999976
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 4
+      }
+    },
+    {
+      "name": "prepare/workers4/rep02",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 4,
+      "rep": 2,
+      "order": 5,
+      "run_dir": "prepare/workers4/rep02",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "4",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers4/rep02"
+      ],
+      "started_at": "2026-11-18T17:59:03-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.07,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 12.110073958000044,
+      "finished_at": "2026-11-18T17:59:15-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers4__rep02.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.14,
+        "utilization_percent": 8.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.18604690899997,
+          "partition_s": 0.5488682149999704,
+          "images_s": 1.5326419629999464,
+          "export_s": 5.152065201999903,
+          "prepare_wall_s": 11.740741704000015
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 4
+      }
+    },
+    {
+      "name": "prepare/workers1/rep02",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 1,
+      "rep": 2,
+      "order": 6,
+      "run_dir": "prepare/workers1/rep02",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "1",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/rep02"
+      ],
+      "started_at": "2026-11-18T17:59:45-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.08,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 15.627285533000077,
+      "finished_at": "2026-11-18T18:00:01-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers1__rep02.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 48.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.14,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.152161699999965,
+          "partition_s": 0.547114257999965,
+          "images_s": 5.081579683999962,
+          "export_s": 5.190395145000025,
+          "prepare_wall_s": 15.28172839900003
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 1
+      }
+    },
+    {
+      "name": "prepare/workers1/rep03",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 1,
+      "rep": 3,
+      "order": 7,
+      "run_dir": "prepare/workers1/rep03",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "1",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/rep03"
+      ],
+      "started_at": "2026-11-18T18:00:31-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.1,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 15.512214287999996,
+      "finished_at": "2026-11-18T18:00:46-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers1__rep03.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.13,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.224646781000047,
+          "partition_s": 0.5300350070000377,
+          "images_s": 4.970164734999912,
+          "export_s": 5.147817338999971,
+          "prepare_wall_s": 15.18296503099998
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 1
+      }
+    },
+    {
+      "name": "prepare/workers4/rep03",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 4,
+      "rep": 3,
+      "order": 8,
+      "run_dir": "prepare/workers4/rep03",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "4",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers4/rep03"
+      ],
+      "started_at": "2026-11-18T18:01:16-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 46.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.1,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 12.169964973000106,
+      "finished_at": "2026-11-18T18:01:28-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers4__rep03.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.11,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.042123364999952,
+          "partition_s": 0.5355280720000337,
+          "images_s": 1.6029786369999783,
+          "export_s": 5.335976718999973,
+          "prepare_wall_s": 11.832085837000022
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 4
+      }
+    },
+    {
+      "name": "prepare/workers4/rep04",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 4,
+      "rep": 4,
+      "order": 9,
+      "run_dir": "prepare/workers4/rep04",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "4",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers4/rep04"
+      ],
+      "started_at": "2026-11-18T18:01:58-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 46.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.09,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 11.896490733000064,
+      "finished_at": "2026-11-18T18:02:10-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers4__rep04.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.16,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.061155478000046,
+          "partition_s": 0.5226069220000227,
+          "images_s": 1.491933730000028,
+          "export_s": 5.177407766999977,
+          "prepare_wall_s": 11.560614482999995
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 4
+      }
+    },
+    {
+      "name": "prepare/workers1/rep04",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 1,
+      "rep": 4,
+      "order": 10,
+      "run_dir": "prepare/workers1/rep04",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "1",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/rep04"
+      ],
+      "started_at": "2026-11-18T18:02:40-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 46.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.13,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 15.069375720999915,
+      "finished_at": "2026-11-18T18:02:55-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers1__rep04.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.16,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.068971400999999,
+          "partition_s": 0.5204148059999625,
+          "images_s": 4.825702835000129,
+          "export_s": 5.016655288000038,
+          "prepare_wall_s": 14.739473505999968
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 1
+      }
+    },
+    {
+      "name": "prepare/workers1/rep05",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 1,
+      "rep": 5,
+      "order": 11,
+      "run_dir": "prepare/workers1/rep05",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "1",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/rep05"
+      ],
+      "started_at": "2026-11-18T18:03:25-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.07,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 15.33639041000015,
+      "finished_at": "2026-11-18T18:03:41-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers1__rep05.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.19,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.162598247000005,
+          "partition_s": 0.5242167050000717,
+          "images_s": 4.893806123999866,
+          "export_s": 5.098777663999954,
+          "prepare_wall_s": 14.989000905000012
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 1
+      }
+    },
+    {
+      "name": "prepare/workers4/rep05",
+      "kind": "prepare",
+      "role": "measured",
+      "workers": 4,
+      "rep": 5,
+      "order": 12,
+      "run_dir": "prepare/workers4/rep05",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.prepare",
+        "--workers",
+        "4",
+        "--raw-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers4/rep05"
+      ],
+      "started_at": "2026-11-18T18:04:11-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 46.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.29,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 11.948024735000217,
+      "finished_at": "2026-11-18T18:04:23-06:00",
+      "exit_code": 0,
+      "console_log": "logs/prepare__workers4__rep05.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.26,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "prepare_check": {
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      "summary": {
+        "times": {
+          "inventory_s": 4.252169028000026,
+          "partition_s": 0.5321083090000229,
+          "images_s": 1.486686686999974,
+          "export_s": 5.033100074000004,
+          "prepare_wall_s": 11.611447677999877
+        },
+        "array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "workers": 4
+      }
+    },
+    {
+      "name": "train/cpu/warmup01",
+      "kind": "train",
+      "role": "warmup",
+      "config": "cpu",
+      "rep": 1,
+      "smoke": true,
+      "order": 13,
+      "run_dir": "train/cpu/warmup01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "cpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/cpu/warmup01",
+        "--smoke"
+      ],
+      "started_at": "2026-11-18T18:04:53-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 46.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.1,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 5.249929937000161,
+      "finished_at": "2026-11-18T18:04:58-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__cpu__warmup01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 47.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.2,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "smoke",
+        "device": "CPU",
+        "train_with_validation_s": 1.3718604560001495,
+        "run_wall_s": 4.367770634999943,
+        "test_accuracy": 0.1034482792019844,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "00f822f86d2e1adc7909ea6f8523585e08b9c95a783f337e13aa0eada288f321",
+          "y_train": "c71d0d5466c5c408f1aaf9c3b8f438a923989fa855afd5a894f12cbb5bd908b7",
+          "X_val": "abf751694c23b17efe14ff2246f8aae57e8f8b97bf363d86cf4f9a7e0b5a6364",
+          "y_val": "1225b7c892a5496b065c9658dbd061b8445caf4cdd35cb91e4fef20bd4678974",
+          "X_test": "129e24350ab83f35a2330d3ddd85baf2dd8e082217557cff441031285e443810",
+          "y_test": "1225b7c892a5496b065c9658dbd061b8445caf4cdd35cb91e4fef20bd4678974"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 1,
+        "sample_counts": {
+          "train": 464,
+          "val": 116,
+          "test": 116
+        }
+      }
+    },
+    {
+      "name": "train/gpu_keras/warmup01",
+      "kind": "train",
+      "role": "warmup",
+      "config": "gpu_keras",
+      "rep": 1,
+      "smoke": true,
+      "order": 14,
+      "run_dir": "train/gpu_keras/warmup01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_keras/warmup01",
+        "--smoke"
+      ],
+      "started_at": "2026-11-18T18:05:28-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 46.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.11,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 7.987610503000042,
+      "finished_at": "2026-11-18T18:05:36-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_keras__warmup01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 52.0,
+        "sm_clock_mhz": 1425.0,
+        "power_w": 27.35,
+        "utilization_percent": 15.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "smoke",
+        "device": "GPU",
+        "train_with_validation_s": 3.2698528050000277,
+        "run_wall_s": 6.781837115000144,
+        "test_accuracy": 0.12931033968925476,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "00f822f86d2e1adc7909ea6f8523585e08b9c95a783f337e13aa0eada288f321",
+          "y_train": "c71d0d5466c5c408f1aaf9c3b8f438a923989fa855afd5a894f12cbb5bd908b7",
+          "X_val": "abf751694c23b17efe14ff2246f8aae57e8f8b97bf363d86cf4f9a7e0b5a6364",
+          "y_val": "1225b7c892a5496b065c9658dbd061b8445caf4cdd35cb91e4fef20bd4678974",
+          "X_test": "129e24350ab83f35a2330d3ddd85baf2dd8e082217557cff441031285e443810",
+          "y_test": "1225b7c892a5496b065c9658dbd061b8445caf4cdd35cb91e4fef20bd4678974"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 1,
+        "sample_counts": {
+          "train": 464,
+          "val": 116,
+          "test": 116
+        }
+      }
+    },
+    {
+      "name": "train/gpu_numba/warmup01",
+      "kind": "train",
+      "role": "warmup",
+      "config": "gpu_numba",
+      "rep": 1,
+      "smoke": true,
+      "order": 15,
+      "run_dir": "train/gpu_numba/warmup01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--optimizer",
+        "numba",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_numba/warmup01",
+        "--smoke"
+      ],
+      "started_at": "2026-11-18T18:06:06-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 51.0,
+        "sm_clock_mhz": 945.0,
+        "power_w": 19.43,
+        "utilization_percent": 1.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 9.08777051800007,
+      "finished_at": "2026-11-18T18:06:15-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_numba__warmup01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 54.0,
+        "sm_clock_mhz": 1425.0,
+        "power_w": 23.99,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "smoke",
+        "device": "GPU",
+        "train_with_validation_s": 2.676115667999966,
+        "run_wall_s": 7.6313026799998624,
+        "test_accuracy": 0.09482758492231369,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "00f822f86d2e1adc7909ea6f8523585e08b9c95a783f337e13aa0eada288f321",
+          "y_train": "c71d0d5466c5c408f1aaf9c3b8f438a923989fa855afd5a894f12cbb5bd908b7",
+          "X_val": "abf751694c23b17efe14ff2246f8aae57e8f8b97bf363d86cf4f9a7e0b5a6364",
+          "y_val": "1225b7c892a5496b065c9658dbd061b8445caf4cdd35cb91e4fef20bd4678974",
+          "X_test": "129e24350ab83f35a2330d3ddd85baf2dd8e082217557cff441031285e443810",
+          "y_test": "1225b7c892a5496b065c9658dbd061b8445caf4cdd35cb91e4fef20bd4678974"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 1,
+        "sample_counts": {
+          "train": 464,
+          "val": 116,
+          "test": 116
+        }
+      }
+    },
+    {
+      "name": "train/cpu/rep01",
+      "kind": "train",
+      "role": "measured",
+      "config": "cpu",
+      "rep": 1,
+      "smoke": false,
+      "order": 16,
+      "run_dir": "train/cpu/rep01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "cpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/cpu/rep01"
+      ],
+      "started_at": "2026-11-18T18:07:01-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 50.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.31,
+        "utilization_percent": 9.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 219.36444568699994,
+      "finished_at": "2026-11-18T18:10:40-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__cpu__rep01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 58.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.66,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_cpu",
+        "device": "CPU",
+        "train_with_validation_s": 212.479322207,
+        "run_wall_s": 218.4797695320001,
+        "test_accuracy": 0.8260536193847656,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_keras/rep01",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_keras",
+      "rep": 1,
+      "smoke": false,
+      "order": 17,
+      "run_dir": "train/gpu_keras/rep01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_keras/rep01"
+      ],
+      "started_at": "2026-11-18T18:11:23-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 53.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.54,
+        "utilization_percent": 3.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 46.07276442700004,
+      "finished_at": "2026-11-18T18:12:09-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_keras__rep01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 77.0,
+        "sm_clock_mhz": 1912.0,
+        "power_w": 50.8,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu",
+        "device": "GPU",
+        "train_with_validation_s": 40.33457337200002,
+        "run_wall_s": 45.05720468499999,
+        "test_accuracy": 0.8088122606277466,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_numba/rep01",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_numba",
+      "rep": 1,
+      "smoke": false,
+      "order": 18,
+      "run_dir": "train/gpu_numba/rep01",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--optimizer",
+        "numba",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_numba/rep01"
+      ],
+      "started_at": "2026-11-18T18:12:42-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 54.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.35,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 56.744999864999954,
+      "finished_at": "2026-11-18T18:13:39-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_numba__rep01.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 77.0,
+        "sm_clock_mhz": 1912.0,
+        "power_w": 43.42,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu_numba_adam",
+        "device": "GPU",
+        "train_with_validation_s": 49.496615148000046,
+        "run_wall_s": 55.22769567099999,
+        "test_accuracy": 0.7900382876396179,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_keras/rep02",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_keras",
+      "rep": 2,
+      "smoke": false,
+      "order": 19,
+      "run_dir": "train/gpu_keras/rep02",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_keras/rep02"
+      ],
+      "started_at": "2026-11-18T18:14:09-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 55.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.45,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 46.5516026119999,
+      "finished_at": "2026-11-18T18:14:56-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_keras__rep02.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 77.0,
+        "sm_clock_mhz": 1912.0,
+        "power_w": 52.86,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu",
+        "device": "GPU",
+        "train_with_validation_s": 40.56621139800018,
+        "run_wall_s": 45.48915744300007,
+        "test_accuracy": 0.8088122606277466,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_numba/rep02",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_numba",
+      "rep": 2,
+      "smoke": false,
+      "order": 20,
+      "run_dir": "train/gpu_numba/rep02",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--optimizer",
+        "numba",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_numba/rep02"
+      ],
+      "started_at": "2026-11-18T18:15:26-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 59.0,
+        "sm_clock_mhz": 1425.0,
+        "power_w": 27.51,
+        "utilization_percent": 23.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 57.32308405100002,
+      "finished_at": "2026-11-18T18:16:23-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_numba__rep02.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 78.0,
+        "sm_clock_mhz": 1912.0,
+        "power_w": 44.05,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu_numba_adam",
+        "device": "GPU",
+        "train_with_validation_s": 49.832519108999804,
+        "run_wall_s": 55.80979361899995,
+        "test_accuracy": 0.7900382876396179,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/cpu/rep02",
+      "kind": "train",
+      "role": "measured",
+      "config": "cpu",
+      "rep": 2,
+      "smoke": false,
+      "order": 21,
+      "run_dir": "train/cpu/rep02",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "cpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/cpu/rep02"
+      ],
+      "started_at": "2026-11-18T18:16:53-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 56.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.68,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 227.0910949239999,
+      "finished_at": "2026-11-18T18:20:40-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__cpu__rep02.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 56.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.55,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_cpu",
+        "device": "CPU",
+        "train_with_validation_s": 220.45520971799988,
+        "run_wall_s": 226.26112311400016,
+        "test_accuracy": 0.8260536193847656,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_numba/rep03",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_numba",
+      "rep": 3,
+      "smoke": false,
+      "order": 22,
+      "run_dir": "train/gpu_numba/rep03",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--optimizer",
+        "numba",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_numba/rep03"
+      ],
+      "started_at": "2026-11-18T18:21:10-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 53.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.32,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 56.713423367999894,
+      "finished_at": "2026-11-18T18:22:07-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_numba__rep03.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 77.0,
+        "sm_clock_mhz": 1912.0,
+        "power_w": 46.56,
+        "utilization_percent": 1.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu_numba_adam",
+        "device": "GPU",
+        "train_with_validation_s": 49.524556974999996,
+        "run_wall_s": 55.418833321999955,
+        "test_accuracy": 0.7900382876396179,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/cpu/rep03",
+      "kind": "train",
+      "role": "measured",
+      "config": "cpu",
+      "rep": 3,
+      "smoke": false,
+      "order": 23,
+      "run_dir": "train/cpu/rep03",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "cpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/cpu/rep03"
+      ],
+      "started_at": "2026-11-18T18:22:37-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 59.0,
+        "sm_clock_mhz": 1425.0,
+        "power_w": 24.36,
+        "utilization_percent": 1.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 233.8823551290002,
+      "finished_at": "2026-11-18T18:26:31-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__cpu__rep03.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 58.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.48,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_cpu",
+        "device": "CPU",
+        "train_with_validation_s": 226.85048745199992,
+        "run_wall_s": 232.92882226899974,
+        "test_accuracy": 0.8260536193847656,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_keras/rep03",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_keras",
+      "rep": 3,
+      "smoke": false,
+      "order": 24,
+      "run_dir": "train/gpu_keras/rep03",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_keras/rep03"
+      ],
+      "started_at": "2026-11-18T18:27:01-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 55.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.25,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 46.637291930000174,
+      "finished_at": "2026-11-18T18:27:48-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_keras__rep03.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 78.0,
+        "sm_clock_mhz": 1912.0,
+        "power_w": 51.65,
+        "utilization_percent": 4.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu",
+        "device": "GPU",
+        "train_with_validation_s": 40.72941883900012,
+        "run_wall_s": 45.596718221000174,
+        "test_accuracy": 0.8088122606277466,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/cpu/rep04",
+      "kind": "train",
+      "role": "measured",
+      "config": "cpu",
+      "rep": 4,
+      "smoke": false,
+      "order": 25,
+      "run_dir": "train/cpu/rep04",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "cpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/cpu/rep04"
+      ],
+      "started_at": "2026-11-18T18:28:18-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 56.0,
+        "sm_clock_mhz": 525.0,
+        "power_w": 15.39,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 222.60181923399978,
+      "finished_at": "2026-11-18T18:32:00-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__cpu__rep04.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 58.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.56,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_cpu",
+        "device": "CPU",
+        "train_with_validation_s": 215.75076849100014,
+        "run_wall_s": 221.439944105,
+        "test_accuracy": 0.8260536193847656,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_keras/rep04",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_keras",
+      "rep": 4,
+      "smoke": false,
+      "order": 26,
+      "run_dir": "train/gpu_keras/rep04",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_keras/rep04"
+      ],
+      "started_at": "2026-11-18T18:32:30-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 54.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.26,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 46.52328210199994,
+      "finished_at": "2026-11-18T18:33:17-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_keras__rep04.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 77.0,
+        "sm_clock_mhz": 1912.0,
+        "power_w": 46.97,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu",
+        "device": "GPU",
+        "train_with_validation_s": 40.69076831299981,
+        "run_wall_s": 45.22372756999994,
+        "test_accuracy": 0.8088122606277466,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_numba/rep04",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_numba",
+      "rep": 4,
+      "smoke": false,
+      "order": 27,
+      "run_dir": "train/gpu_numba/rep04",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--optimizer",
+        "numba",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_numba/rep04"
+      ],
+      "started_at": "2026-11-18T18:33:47-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 55.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.32,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 57.26110261800022,
+      "finished_at": "2026-11-18T18:34:44-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_numba__rep04.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 78.0,
+        "sm_clock_mhz": 1905.0,
+        "power_w": 47.68,
+        "utilization_percent": 5.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu_numba_adam",
+        "device": "GPU",
+        "train_with_validation_s": 50.496904473000086,
+        "run_wall_s": 56.06225635099963,
+        "test_accuracy": 0.7900382876396179,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_keras/rep05",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_keras",
+      "rep": 5,
+      "smoke": false,
+      "order": 28,
+      "run_dir": "train/gpu_keras/rep05",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_keras/rep05"
+      ],
+      "started_at": "2026-11-18T18:35:14-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 57.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.29,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 46.56089093499986,
+      "finished_at": "2026-11-18T18:36:01-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_keras__rep05.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 78.0,
+        "sm_clock_mhz": 1905.0,
+        "power_w": 51.07,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu",
+        "device": "GPU",
+        "train_with_validation_s": 40.92458488500006,
+        "run_wall_s": 45.586524013000144,
+        "test_accuracy": 0.8088122606277466,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/gpu_numba/rep05",
+      "kind": "train",
+      "role": "measured",
+      "config": "gpu_numba",
+      "rep": 5,
+      "smoke": false,
+      "order": 29,
+      "run_dir": "train/gpu_numba/rep05",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "gpu",
+        "--optimizer",
+        "numba",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_numba/rep05"
+      ],
+      "started_at": "2026-11-18T18:36:31-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 57.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.35,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 57.22403075200009,
+      "finished_at": "2026-11-18T18:37:28-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__gpu_numba__rep05.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 78.0,
+        "sm_clock_mhz": 1905.0,
+        "power_w": 45.67,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_gpu_numba_adam",
+        "device": "GPU",
+        "train_with_validation_s": 50.16705120300003,
+        "run_wall_s": 55.90992614100014,
+        "test_accuracy": 0.7900382876396179,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    },
+    {
+      "name": "train/cpu/rep05",
+      "kind": "train",
+      "role": "measured",
+      "config": "cpu",
+      "rep": 5,
+      "smoke": false,
+      "order": 30,
+      "run_dir": "train/cpu/rep05",
+      "status": "complete",
+      "cooldown_s": 30.0,
+      "command": [
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+        "-X",
+        "utf8",
+        "-m",
+        "asl_cpu.train",
+        "--device",
+        "cpu",
+        "--threads",
+        "8",
+        "--data-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline",
+        "--config",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json",
+        "--output-dir",
+        "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/cpu/rep05"
+      ],
+      "started_at": "2026-11-18T18:37:58-06:00",
+      "gpu_state_start": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 59.0,
+        "sm_clock_mhz": 322.0,
+        "power_w": 18.64,
+        "utilization_percent": 2.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "process_wall_s": 227.05843385499975,
+      "finished_at": "2026-11-18T18:41:45-06:00",
+      "exit_code": 0,
+      "console_log": "logs/train__cpu__rep05.console.log",
+      "gpu_state_end": {
+        "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "driver_version": "550.163.01",
+        "temperature_c": 57.0,
+        "sm_clock_mhz": 210.0,
+        "power_w": 14.56,
+        "utilization_percent": 0.0,
+        "memory_used_mib": 256.0,
+        "memory_total_mib": 6144.0
+      },
+      "summary": {
+        "run_kind": "baseline_cpu",
+        "device": "CPU",
+        "train_with_validation_s": 220.42616982200025,
+        "run_wall_s": 226.110262056,
+        "test_accuracy": 0.8260536193847656,
+        "config_sha256": "84737bd1f4b0d2b81cdb9fd8e04e44be79f0780360db5c7f1685fe42ba480164",
+        "partition_sha256": "a74b14b7121799e8d92975fd827ff3ce665446e1837105d3298dfe8cd0627b4c",
+        "used_array_sha256": {
+          "clases": "e4a9a7b4a84f9f12f9139475195fa210e5d418595d22d630cb665f39af88049d",
+          "X_train": "945efa15c607642981eb33b46cd529df131b9160028a4d2af8d2a26f685c53ab",
+          "y_train": "27284f4eb77e3c0e1bcba62e59e46796373fa468547dcf2ff3bf639c991331c5",
+          "X_val": "fa1f4bb65b380147dc8e314feaffd7807d6e33b84da9e10845b6111c2a7d515a",
+          "y_val": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966",
+          "X_test": "fdf5f78bae98b6857e91b18b177efca2a69645140897b4ca8086bbab9fba2b8c",
+          "y_test": "31017686506696dac3d2b0a3a8a92d8b7ed2f6fb64325cbff538133e14703966"
+        },
+        "initial_weights_sha256": "b1feb9805ecb18a53321152b22e1fc9a1cf947b3d7a80b32c3296ebc3640698c",
+        "model_parameters": 1145693,
+        "epochs_completed": 20,
+        "sample_counts": {
+          "train": 12180,
+          "val": 2610,
+          "test": 2610
+        }
+      }
+    }
+  ],
+  "host": {
+    "recorded_at": "2026-11-18T17:55:57.502331-06:00",
+    "platform": "Linux-6.8.0-45-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python",
+    "physical_cores": 8,
+    "logical_cpus": 16,
+    "ram_bytes": 16533815296,
+    "packages": {
+      "tensorflow": "2.21.0",
+      "keras": "3.15.1",
+      "numpy": "2.2.6",
+      "pandas": "2.3.3",
+      "opencv-python-headless": "4.12.0.88",
+      "pyarrow": "22.0.0",
+      "psutil": "7.1.3"
+    },
+    "cpu_model": "11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz",
+    "gpu": {
+      "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+      "driver_version": "550.163.01",
+      "temperature_c": 44.0,
+      "sm_clock_mhz": 210.0,
+      "power_w": 14.06,
+      "utilization_percent": 0.0,
+      "memory_used_mib": 256.0,
+      "memory_total_mib": 6144.0
+    },
+    "git_commit": "3928a4ce4d919ab1c8f9978aab0daa62fdb59f17"
+  },
+  "configs": {
+    "cpu": {
+      "train_args": [
+        "--device",
+        "cpu"
+      ],
+      "device": "CPU",
+      "label": "CPU (TensorFlow, oneDNN)",
+      "threads": 8
+    },
+    "gpu_keras": {
+      "train_args": [
+        "--device",
+        "gpu"
+      ],
+      "device": "GPU",
+      "label": "GPU CUDA (cuDNN/cuBLAS, Adam de Keras)",
+      "threads": 8
+    },
+    "gpu_numba": {
+      "train_args": [
+        "--device",
+        "gpu",
+        "--optimizer",
+        "numba"
+      ],
+      "device": "GPU",
+      "label": "GPU CUDA + kernel Adam propio (Numba)",
+      "threads": 8
+    }
+  },
+  "updated_at": "2026-11-18T18:41:45-06:00",
+  "workload_check": {
+    "reference_run": "train/cpu/rep01",
+    "train": [
+      {
+        "run": "train/cpu/rep01",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_keras/rep01",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_numba/rep01",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_keras/rep02",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_numba/rep02",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/cpu/rep02",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_numba/rep03",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/cpu/rep03",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_keras/rep03",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/cpu/rep04",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_keras/rep04",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_numba/rep04",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_keras/rep05",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/gpu_numba/rep05",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      },
+      {
+        "run": "train/cpu/rep05",
+        "device_ok": true,
+        "same_as_reference": {
+          "config_sha256": true,
+          "partition_sha256": true,
+          "used_array_sha256": true,
+          "initial_weights_sha256": true,
+          "model_parameters": true,
+          "epochs_completed": true,
+          "sample_counts": true
+        },
+        "ok": true
+      }
+    ],
+    "prepare": [
+      {
+        "run": "prepare/workers1/rep01",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers4/rep01",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers4/rep02",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers1/rep02",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers1/rep03",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers4/rep03",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers4/rep04",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers1/rep04",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers1/rep05",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      },
+      {
+        "run": "prepare/workers4/rep05",
+        "same_arrays_as_training_data": true,
+        "same_partition_as_training_data": true,
+        "same_config": true,
+        "removed_files": [
+          "asl_64x64.npz",
+          "inventario.parquet",
+          "particion.parquet",
+          "particion.csv"
+        ]
+      }
+    ],
+    "all_ok": true
+  }
+}

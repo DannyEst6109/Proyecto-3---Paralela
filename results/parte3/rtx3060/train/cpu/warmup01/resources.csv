@@ -1,0 +1,5 @@
+elapsed_s,phase,process_tree_cpu_percent,process_tree_rss_mb,system_ram_percent,cpu_0_percent,cpu_1_percent,cpu_2_percent,cpu_3_percent,cpu_4_percent,cpu_5_percent,cpu_6_percent,cpu_7_percent,cpu_8_percent,cpu_9_percent,cpu_10_percent,cpu_11_percent,cpu_12_percent,cpu_13_percent,cpu_14_percent,cpu_15_percent
+1.2876,load_prepared_data,82.36,662.672,51.5,1.9,0.0,3.7,24.5,1.9,0.9,0.9,0.9,0.0,1.9,1.9,74.5,0.9,0.0,1.9,1.9
+2.3501,load_prepared_data,87.525,841.352,52.7,3.0,2.0,0.0,88.2,2.9,2.0,0.0,0.0,2.0,0.0,4.0,0.0,3.0,2.0,0.0,3.0
+3.3561,train_with_validation,103.379,799.977,52.2,2.0,0.0,1.9,94.2,0.0,2.9,2.9,1.0,1.0,1.0,1.9,3.8,1.0,2.9,0.0,2.9
+4.3985,done,326.185,970.109,53.2,31.4,11.1,7.1,55.9,23.2,40.0,18.0,16.0,6.9,26.0,24.8,15.8,33.7,28.7,11.9,19.2

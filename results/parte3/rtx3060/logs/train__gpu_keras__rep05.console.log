@@ -1,0 +1,98 @@
+$ /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python -X utf8 -m asl_cpu.train --device gpu --threads 8 --data-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline --config /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json --output-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_keras/rep05
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795048515.190639   67177 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795048516.019099   67177 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+GPU visibles: ["PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')"] | detalles: [{'compute_capability': (8, 6), 'device_name': 'NVIDIA GeForce RTX 3060 Laptop GPU'}]
+CUDA 12.5.1 | cuDNN 9 | modelo en /GPU:0
+Muestras: {'train': 12180, 'val': 2610, 'test': 2610}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:GPU:0']
+Epoch 1/20
+191/191 - 5s - 27ms/step - accuracy: 0.1799 - loss: 2.8346 - val_accuracy: 0.3648 - val_loss: 2.1232
+Epoch 2/20
+191/191 - 2s - 10ms/step - accuracy: 0.5077 - loss: 1.5372 - val_accuracy: 0.5264 - val_loss: 1.4745
+Epoch 3/20
+191/191 - 2s - 10ms/step - accuracy: 0.6805 - loss: 0.9588 - val_accuracy: 0.5866 - val_loss: 1.3353
+Epoch 4/20
+191/191 - 2s - 10ms/step - accuracy: 0.7819 - loss: 0.6545 - val_accuracy: 0.6330 - val_loss: 1.1697
+Epoch 5/20
+191/191 - 2s - 10ms/step - accuracy: 0.8320 - loss: 0.4872 - val_accuracy: 0.6613 - val_loss: 1.0968
+Epoch 6/20
+191/191 - 2s - 10ms/step - accuracy: 0.8631 - loss: 0.3858 - val_accuracy: 0.7008 - val_loss: 1.1080
+Epoch 7/20
+191/191 - 2s - 10ms/step - accuracy: 0.8911 - loss: 0.3167 - val_accuracy: 0.6992 - val_loss: 1.0515
+Epoch 8/20
+191/191 - 2s - 10ms/step - accuracy: 0.9044 - loss: 0.2841 - val_accuracy: 0.7019 - val_loss: 1.0633
+Epoch 9/20
+191/191 - 2s - 10ms/step - accuracy: 0.9188 - loss: 0.2350 - val_accuracy: 0.7084 - val_loss: 1.1820
+Epoch 10/20
+191/191 - 2s - 10ms/step - accuracy: 0.9295 - loss: 0.2080 - val_accuracy: 0.7046 - val_loss: 1.1475
+Epoch 11/20
+191/191 - 2s - 10ms/step - accuracy: 0.9334 - loss: 0.1939 - val_accuracy: 0.7211 - val_loss: 1.2301
+Epoch 12/20
+191/191 - 2s - 10ms/step - accuracy: 0.9392 - loss: 0.1726 - val_accuracy: 0.7088 - val_loss: 1.3728
+Epoch 13/20
+191/191 - 2s - 10ms/step - accuracy: 0.9415 - loss: 0.1643 - val_accuracy: 0.7226 - val_loss: 1.3187
+Epoch 14/20
+191/191 - 2s - 10ms/step - accuracy: 0.9437 - loss: 0.1549 - val_accuracy: 0.7310 - val_loss: 1.3808
+Epoch 15/20
+191/191 - 2s - 10ms/step - accuracy: 0.9536 - loss: 0.1341 - val_accuracy: 0.7284 - val_loss: 1.2261
+Epoch 16/20
+191/191 - 2s - 10ms/step - accuracy: 0.9560 - loss: 0.1240 - val_accuracy: 0.7234 - val_loss: 1.4212
+Epoch 17/20
+191/191 - 2s - 10ms/step - accuracy: 0.9594 - loss: 0.1115 - val_accuracy: 0.7414 - val_loss: 1.3125
+Epoch 18/20
+191/191 - 2s - 10ms/step - accuracy: 0.9643 - loss: 0.1016 - val_accuracy: 0.7238 - val_loss: 1.4190
+Epoch 19/20
+191/191 - 2s - 10ms/step - accuracy: 0.9632 - loss: 0.1083 - val_accuracy: 0.7586 - val_loss: 1.2639
+Epoch 20/20
+191/191 - 2s - 10ms/step - accuracy: 0.9669 - loss: 0.0952 - val_accuracy: 0.7467 - val_loss: 1.3658
+Dispositivos de las variables de Adam: ['/job:localhost/replica:0/task:0/device:GPU:0']
+Memoria GPU de TensorFlow: pico 241.5 MiB, actual 15.3 MiB
+{
+  "times": {
+    "tensorflow_setup_s": 1.4936126549996516,
+    "load_and_verify_s": 1.2200152529999286,
+    "normalize_cpu_s": 0.1894193949997316,
+    "build_model_and_input_s": 1.0687899939998715,
+    "train_with_validation_s": 40.92458488500006,
+    "evaluate_and_predictions_s": 0.44913025500000003,
+    "save_final_weights_s": 0.032062692000181414,
+    "run_wall_s": 45.586524013000144
+  },
+  "validation": {
+    "accuracy": 0.7467433214187622,
+    "loss": 1.3658428192138672
+  },
+  "test": {
+    "accuracy": 0.8088122606277466,
+    "loss": 1.010601282119751
+  }
+}

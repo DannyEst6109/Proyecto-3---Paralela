@@ -1,0 +1,68 @@
+$ /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python -X utf8 -m asl_cpu.train --device gpu --optimizer numba --threads 8 --data-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/processed/baseline --config /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json --output-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/train/gpu_numba/warmup01 --smoke
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795046767.257408   33176 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1795046768.147412   33176 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+GPU visibles: ["PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')"] | detalles: [{'compute_capability': (8, 6), 'device_name': 'NVIDIA GeForce RTX 3060 Laptop GPU'}]
+CUDA 12.5.1 | cuDNN 9 | modelo en /GPU:0
+Muestras: {'train': 464, 'val': 116, 'test': 116}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:GPU:0']
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 4 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 1 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 72 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+/home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/lib/python3.12/site-packages/numba/cuda/dispatcher.py:540: NumbaPerformanceWarning: Grid size 15 will likely result in GPU under-utilization due to low occupancy.
+  warn(NumbaPerformanceWarning(msg))
+Epoch 1/1
+8/8 - 2s - 312ms/step - accuracy: 0.0539 - loss: 3.3585 - val_accuracy: 0.1034 - val_loss: 3.3315
+Adam Numba: 8 pasos, kernel+sincronización 0.03 s, DLPack/assign 0.03 s, estado en cupy/numba device 0 (NVIDIA GeForce RTX 3060 Laptop GPU)
+Memoria GPU de TensorFlow: pico 232.2 MiB, actual 13.4 MiB
+{
+  "times": {
+    "tensorflow_setup_s": 1.6202489229999628,
+    "load_and_verify_s": 1.2363889339999332,
+    "normalize_cpu_s": 0.0058077810001577745,
+    "build_model_and_input_s": 1.9252014450000843,
+    "train_with_validation_s": 2.676115667999966,
+    "evaluate_and_predictions_s": 0.10366931799990198,
+    "save_final_weights_s": 0.020035669999970196,
+    "run_wall_s": 7.6313026799998624
+  },
+  "validation": {
+    "accuracy": 0.1034482792019844,
+    "loss": 3.3315272331237793
+  },
+  "test": {
+    "accuracy": 0.09482758492231369,
+    "loss": 3.35394024848938
+  }
+}

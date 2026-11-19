@@ -1,0 +1,6 @@
+$ /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/.venv/bin/python -X utf8 -m asl_cpu.prepare --workers 1 --raw-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/data/raw --config /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/config/baseline.json --output-dir /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/rep02
+train: (12180, 64, 64, 3), 142.7 MiB
+val: (2610, 64, 64, 3), 30.6 MiB
+test: (2610, 64, 64, 3), 30.6 MiB
+Preparación completa: /home/sestradat/Escritorio/u/semestre/raro 1 /Paralela/Proyecto-3---Paralela/results/parte3/rtx3060/prepare/workers1/rep02
+{'inventory_s': 4.152161699999965, 'partition_s': 0.547114257999965, 'images_s': 5.081579683999962, 'export_s': 5.190395145000025, 'prepare_wall_s': 15.28172839900003}
