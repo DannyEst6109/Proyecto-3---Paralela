@@ -1,0 +1,16 @@
+elapsed_s,phase,process_tree_cpu_percent,process_tree_rss_mb,system_ram_percent,cpu_0_percent,cpu_1_percent
+1.5034,tensorflow_setup,69.755,682.012,12.8,53.5,70.7
+2.5175,tensorflow_setup,76.916,721.156,13.1,99.0,99.0
+3.5501,tensorflow_setup,81.346,791.801,13.5,99.0,99.0
+4.5585,tensorflow_setup,95.202,848.695,13.8,100.0,100.0
+5.5664,load_prepared_data,93.257,1038.211,15.0,100.0,99.0
+6.5702,load_prepared_data,98.63,1112.586,15.6,93.0,48.5
+7.5722,load_prepared_data,100.798,1370.559,17.6,100.0,7.1
+8.5744,build_model_and_input,99.779,1186.383,15.8,88.9,30.0
+9.5781,train_with_validation,98.634,1199.973,15.9,88.5,41.3
+10.6138,train_with_validation,105.244,1195.074,15.9,62.6,47.2
+11.6902,train_with_validation,76.18,1214.902,16.1,79.0,42.4
+12.6927,train_with_validation,93.769,1442.422,17.3,60.6,67.7
+13.6964,train_with_validation,98.628,1469.055,17.7,29.7,81.2
+14.699,train_with_validation,94.755,1478.762,17.6,59.6,71.7
+15.7014,train_with_validation,96.773,1606.234,18.3,46.2,69.9

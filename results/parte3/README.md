@@ -12,7 +12,7 @@ Dentro de cada entorno:
 - `prepare/workers<N>/rep<NN>/`: metadatos y monitor de cada repetición de preparación (los arreglos se verifican contra `data/processed/baseline` y luego se borran).
 - `train/<config>/rep<NN>/`: salida completa de `asl_cpu.train` (logs, `metrics.json`, `epochs.csv`, `progress.json`, `resources.csv`, `gpu.csv`, `evidence/`). `warmup01/` es el calentamiento descartado.
 - `logs/`: salida de consola de cada proceso.
-- `capturas/`: capturas de pantalla tomadas durante las corridas (agregarlas a mano).
+- `capturas/`: capturas de pantalla tomadas durante las corridas. En `rtx3060/capturas/` están las 43 capturas de la terminal en orden cronológico, con el número de corrida, la configuración y la repetición en el nombre. En `colab_t4/capturas/` están el monitor durante el CPU y la GPU y, en `notebook/`, la captura completa del notebook ejecutado dividida en secciones.
 - `analisis/`: `RESULTADOS.md`, `corridas_*.csv`, `resumen_por_configuracion.csv`, `speedup.csv`, `tiempos_por_epoca.csv`, `resumen.json` y gráficos PNG.
 
 Los pesos (`*.weights.h5`) y las predicciones (`predictions.npz`) quedan fuera de Git. Si se borran, el análisis sigue funcionando, solo omite la columna de coincidencia de predicciones con la CPU.

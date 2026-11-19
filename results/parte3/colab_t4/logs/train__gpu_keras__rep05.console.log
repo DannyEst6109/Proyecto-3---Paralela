@@ -1,0 +1,94 @@
+$ /content/venv/bin/python -X utf8 -m asl_cpu.train --device gpu --threads 2 --data-dir /content/Proyecto-3---Paralela-main/data/processed/baseline --config /content/Proyecto-3---Paralela-main/config/baseline.json --output-dir /content/Proyecto-3---Paralela-main/results/parte3/colab_t4/train/gpu_keras/rep05
+GPU visibles: ["PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')"] | detalles: [{'compute_capability': (7, 5), 'device_name': 'Tesla T4'}]
+CUDA 12.5.1 | cuDNN 9 | modelo en /GPU:0
+Muestras: {'train': 12180, 'val': 2610, 'test': 2610}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:GPU:0']
+Epoch 1/20
+191/191 - 10s - 50ms/step - accuracy: 0.1983 - loss: 2.7614 - val_accuracy: 0.3870 - val_loss: 2.0182
+Epoch 2/20
+191/191 - 3s - 18ms/step - accuracy: 0.5392 - loss: 1.4538 - val_accuracy: 0.5379 - val_loss: 1.4453
+Epoch 3/20
+191/191 - 5s - 25ms/step - accuracy: 0.7068 - loss: 0.8877 - val_accuracy: 0.6050 - val_loss: 1.2383
+Epoch 4/20
+191/191 - 3s - 16ms/step - accuracy: 0.7989 - loss: 0.5957 - val_accuracy: 0.6406 - val_loss: 1.1577
+Epoch 5/20
+191/191 - 3s - 16ms/step - accuracy: 0.8481 - loss: 0.4482 - val_accuracy: 0.6766 - val_loss: 1.1206
+Epoch 6/20
+191/191 - 4s - 19ms/step - accuracy: 0.8704 - loss: 0.3689 - val_accuracy: 0.6985 - val_loss: 1.0384
+Epoch 7/20
+191/191 - 4s - 24ms/step - accuracy: 0.8963 - loss: 0.2914 - val_accuracy: 0.6962 - val_loss: 1.1677
+Epoch 8/20
+191/191 - 3s - 16ms/step - accuracy: 0.9115 - loss: 0.2533 - val_accuracy: 0.6893 - val_loss: 1.0954
+Epoch 9/20
+191/191 - 3s - 17ms/step - accuracy: 0.9201 - loss: 0.2312 - val_accuracy: 0.7268 - val_loss: 1.1156
+Epoch 10/20
+191/191 - 3s - 18ms/step - accuracy: 0.9323 - loss: 0.1993 - val_accuracy: 0.7218 - val_loss: 1.1061
+Epoch 11/20
+191/191 - 3s - 16ms/step - accuracy: 0.9451 - loss: 0.1607 - val_accuracy: 0.7352 - val_loss: 1.2199
+Epoch 12/20
+191/191 - 3s - 16ms/step - accuracy: 0.9433 - loss: 0.1673 - val_accuracy: 0.7100 - val_loss: 1.3485
+Epoch 13/20
+191/191 - 3s - 16ms/step - accuracy: 0.9504 - loss: 0.1480 - val_accuracy: 0.7398 - val_loss: 1.2218
+Epoch 14/20
+191/191 - 3s - 18ms/step - accuracy: 0.9507 - loss: 0.1367 - val_accuracy: 0.7609 - val_loss: 1.0432
+Epoch 15/20
+191/191 - 5s - 25ms/step - accuracy: 0.9541 - loss: 0.1312 - val_accuracy: 0.7287 - val_loss: 1.2946
+Epoch 16/20
+191/191 - 3s - 16ms/step - accuracy: 0.9562 - loss: 0.1260 - val_accuracy: 0.7479 - val_loss: 1.1915
+Epoch 17/20
+191/191 - 3s - 16ms/step - accuracy: 0.9564 - loss: 0.1205 - val_accuracy: 0.7433 - val_loss: 1.2787
+Epoch 18/20
+191/191 - 3s - 18ms/step - accuracy: 0.9613 - loss: 0.1101 - val_accuracy: 0.7402 - val_loss: 1.2472
+Epoch 19/20
+191/191 - 5s - 25ms/step - accuracy: 0.9629 - loss: 0.1085 - val_accuracy: 0.7571 - val_loss: 1.2102
+Epoch 20/20
+191/191 - 3s - 16ms/step - accuracy: 0.9687 - loss: 0.0929 - val_accuracy: 0.7793 - val_loss: 1.1453
+Dispositivos de las variables de Adam: ['/job:localhost/replica:0/task:0/device:GPU:0']
+Memoria GPU de TensorFlow: pico 369.5 MiB, actual 15.3 MiB
+{
+  "times": {
+    "tensorflow_setup_s": 3.7228831849988637,
+    "load_and_verify_s": 2.659160515999247,
+    "normalize_cpu_s": 0.7276752749985462,
+    "build_model_and_input_s": 2.9938839770002232,
+    "train_with_validation_s": 76.08437333300026,
+    "evaluate_and_predictions_s": 0.7976218620005966,
+    "save_final_weights_s": 0.0583840080016671,
+    "run_wall_s": 88.1874889339997
+  },
+  "validation": {
+    "accuracy": 0.7793103456497192,
+    "loss": 1.1453193426132202
+  },
+  "test": {
+    "accuracy": 0.8160919547080994,
+    "loss": 0.9215663075447083
+  }
+}

@@ -1,0 +1,94 @@
+$ /content/venv/bin/python -X utf8 -m asl_cpu.train --device cpu --threads 2 --data-dir /content/Proyecto-3---Paralela-main/data/processed/baseline --config /content/Proyecto-3---Paralela-main/config/baseline.json --output-dir /content/Proyecto-3---Paralela-main/results/parte3/colab_t4/train/cpu/rep02
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1795046873.994117   21268 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+GPU visibles: [] | entrenamiento forzado a /CPU:0
+Muestras: {'train': 12180, 'val': 2610, 'test': 2610}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:CPU:0']
+Epoch 1/20
+191/191 - 94s - 491ms/step - accuracy: 0.1855 - loss: 2.8123 - val_accuracy: 0.3851 - val_loss: 2.0968
+Epoch 2/20
+191/191 - 94s - 494ms/step - accuracy: 0.5175 - loss: 1.5129 - val_accuracy: 0.5050 - val_loss: 1.4617
+Epoch 3/20
+191/191 - 90s - 470ms/step - accuracy: 0.6827 - loss: 0.9622 - val_accuracy: 0.5609 - val_loss: 1.2983
+Epoch 4/20
+191/191 - 91s - 474ms/step - accuracy: 0.7800 - loss: 0.6609 - val_accuracy: 0.5950 - val_loss: 1.2363
+Epoch 5/20
+191/191 - 91s - 478ms/step - accuracy: 0.8307 - loss: 0.5028 - val_accuracy: 0.6690 - val_loss: 1.0600
+Epoch 6/20
+191/191 - 91s - 474ms/step - accuracy: 0.8667 - loss: 0.3859 - val_accuracy: 0.6762 - val_loss: 1.0494
+Epoch 7/20
+191/191 - 94s - 492ms/step - accuracy: 0.8854 - loss: 0.3281 - val_accuracy: 0.6889 - val_loss: 1.1236
+Epoch 8/20
+191/191 - 89s - 468ms/step - accuracy: 0.8988 - loss: 0.2791 - val_accuracy: 0.6897 - val_loss: 1.0790
+Epoch 9/20
+191/191 - 89s - 466ms/step - accuracy: 0.9191 - loss: 0.2364 - val_accuracy: 0.6713 - val_loss: 1.3310
+Epoch 10/20
+191/191 - 88s - 459ms/step - accuracy: 0.9258 - loss: 0.2164 - val_accuracy: 0.7360 - val_loss: 1.0504
+Epoch 11/20
+191/191 - 151s - 793ms/step - accuracy: 0.9365 - loss: 0.1853 - val_accuracy: 0.7410 - val_loss: 1.1576
+Epoch 12/20
+191/191 - 91s - 479ms/step - accuracy: 0.9478 - loss: 0.1586 - val_accuracy: 0.7529 - val_loss: 1.1400
+Epoch 13/20
+191/191 - 90s - 470ms/step - accuracy: 0.9452 - loss: 0.1574 - val_accuracy: 0.7138 - val_loss: 1.1974
+Epoch 14/20
+191/191 - 91s - 479ms/step - accuracy: 0.9507 - loss: 0.1470 - val_accuracy: 0.7238 - val_loss: 1.2160
+Epoch 15/20
+191/191 - 91s - 474ms/step - accuracy: 0.9503 - loss: 0.1425 - val_accuracy: 0.7464 - val_loss: 1.2396
+Epoch 16/20
+191/191 - 91s - 476ms/step - accuracy: 0.9564 - loss: 0.1234 - val_accuracy: 0.7149 - val_loss: 1.3724
+Epoch 17/20
+191/191 - 92s - 479ms/step - accuracy: 0.9585 - loss: 0.1233 - val_accuracy: 0.7510 - val_loss: 1.3353
+Epoch 18/20
+191/191 - 93s - 486ms/step - accuracy: 0.9632 - loss: 0.1060 - val_accuracy: 0.7238 - val_loss: 1.3112
+Epoch 19/20
+191/191 - 96s - 505ms/step - accuracy: 0.9645 - loss: 0.1076 - val_accuracy: 0.7360 - val_loss: 1.2675
+Epoch 20/20
+191/191 - 94s - 491ms/step - accuracy: 0.9628 - loss: 0.1078 - val_accuracy: 0.7299 - val_loss: 1.4164
+Dispositivos de las variables de Adam: ['/job:localhost/replica:0/task:0/device:CPU:0']
+{
+  "times": {
+    "tensorflow_setup_s": 3.1593007569999827,
+    "load_and_verify_s": 2.593946044000404,
+    "normalize_cpu_s": 0.5544343820001814,
+    "build_model_and_input_s": 1.2197495079999499,
+    "train_with_validation_s": 1890.5270696500002,
+    "evaluate_and_predictions_s": 15.633790757000497,
+    "save_final_weights_s": 0.04599835699991672,
+    "run_wall_s": 1914.6946869049998
+  },
+  "validation": {
+    "accuracy": 0.7298850417137146,
+    "loss": 1.4164154529571533
+  },
+  "test": {
+    "accuracy": 0.7984674572944641,
+    "loss": 0.9088476300239563
+  }
+}

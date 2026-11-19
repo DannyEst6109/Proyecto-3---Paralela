@@ -1,0 +1,55 @@
+$ /content/venv/bin/python -X utf8 -m asl_cpu.train --device cpu --threads 2 --data-dir /content/Proyecto-3---Paralela-main/data/processed/baseline --config /content/Proyecto-3---Paralela-main/config/baseline.json --output-dir /content/Proyecto-3---Paralela-main/results/parte3/colab_t4/train/cpu/warmup01 --smoke
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1795044147.255537    6895 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+GPU visibles: [] | entrenamiento forzado a /CPU:0
+Muestras: {'train': 464, 'val': 116, 'test': 116}
+Model: "cnn_base"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 64, 64, 32)     │           896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 32, 32, 32)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 32, 32, 64)     │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 16, 16, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 16, 16, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 8, 8, 128)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 8192)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 128)            │     1,048,704 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 29)             │         3,741 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 1,145,693 (4.37 MB)
+ Trainable params: 1,145,693 (4.37 MB)
+ Non-trainable params: 0 (0.00 B)
+Dispositivos de los pesos: ['/job:localhost/replica:0/task:0/device:CPU:0']
+8/8 - 5s - 638ms/step - accuracy: 0.0539 - loss: 3.3585 - val_accuracy: 0.0776 - val_loss: 3.3312
+Dispositivos de las variables de Adam: ['/job:localhost/replica:0/task:0/device:CPU:0']
+{
+  "times": {
+    "tensorflow_setup_s": 4.800064209000084,
+    "load_and_verify_s": 2.679126032000113,
+    "normalize_cpu_s": 0.013043222000078458,
+    "build_model_and_input_s": 0.1483082120000745,
+    "train_with_validation_s": 5.108872307999945,
+    "evaluate_and_predictions_s": 0.6892208090000622,
+    "save_final_weights_s": 0.045546509999894624,
+    "run_wall_s": 13.575402789000009
+  },
+  "validation": {
+    "accuracy": 0.07758620381355286,
+    "loss": 3.3312461376190186
+  },
+  "test": {
+    "accuracy": 0.11206896603107452,
+    "loss": 3.3537161350250244
+  }
+}
